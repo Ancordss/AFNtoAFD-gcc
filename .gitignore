@@ -434,4 +434,5 @@ FodyWeavers.xsd
 *.app
 
 
-/extra_libraries/*.zip
+extra_libraries/rapidxml-1.13
+extra_libraries/spdlog-1.12.0

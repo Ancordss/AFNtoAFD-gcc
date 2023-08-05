@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 #include "rapidxml.hpp"
+#include <cstdlib>
+#include "spdlog/spdlog.h"
+
 
 class XMLLoader {
 public:
@@ -12,8 +15,13 @@ public:
     bool loadXMLContent(std::string& xmlContent) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
-            std::cout << "Error: Unable to open file." << std::endl;
-            return false;
+            spdlog::error("Error: Unable to open file.");
+            exit(EXIT_FAILURE);
+        }
+        
+        if (filePath.length() < 4 || filePath.substr(filePath.length() - 4) != ".xml") {
+            spdlog::error("Error: Filepath must end with '.xml'.");
+            exit(EXIT_FAILURE);
         }
 
         xmlContent.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
@@ -26,7 +34,8 @@ public:
             return true;
         }
         catch (rapidxml::parse_error& e) {
-            std::cout << "XML parsing error: " << e.what() << std::endl;
+            spdlog::error("XML parsing error: {} ", e.what());
+  
             return false;
         }
     }
@@ -34,7 +43,7 @@ public:
     void displayContent() {
         std::string xmlContent;
         if (loadXMLContent(xmlContent)) {
-            std::cout << "XML Content:" << std::endl;
+            spdlog::info("XML Content:");
             std::cout << xmlContent << std::endl;
         }
     }

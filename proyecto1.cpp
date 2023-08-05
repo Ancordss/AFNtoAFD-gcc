@@ -13,37 +13,39 @@
 
 #include <iostream>
 #include "src/XmlLoader.h"
+#include "spdlog/spdlog.h"
 
 
 
 void displayOptions() {
-    std::cout << "----- Menu -----" << std::endl;
-    std::cout << "1. ShowLoadedData" << std::endl;
-    std::cout << "2. ShowAFN" << std::endl;
-    std::cout << "3. AFNToAFD" << std::endl;
-    std::cout << "4. ShowAFD" << std::endl;
-    std::cout << "5. GenFile" << std::endl;
-    std::cout << "6. Exit" << std::endl;
+    spdlog::info("----- Menu -----");
+    spdlog::info("1. ShowLoadedData");
+    spdlog::info("2. ShowAFN");
+    spdlog::info("3. AFNToAFD");
+    spdlog::info("4. ShowAFD");
+    spdlog::info("5. GenFile");
+    spdlog::info("6. Exit");
 }
 
 int main(int argc, char* argv[]) {
+    spdlog::set_pattern("AFNtoAFD-[%^%l%$] %v");
     if (argc != 3) {
-        std::cout << "Usage: app --path path_of_the_file_xml" << std::endl;
+        spdlog::error("Usage: app --path path_of_the_file_xml");
         return 0;
     }
 
     if (std::string(argv[1]) != "--path") {
-        std::cout << "Invalid argument. Usage: app --path path_of_the_file_xml" << std::endl;
+        spdlog::error("Invalid argument. Usage: app --path path_of_the_file_xml");
         return 0;
     }
-
     std::string filePath = argv[2];
     XMLLoader xmlLoader(filePath);
     std::string xmlContent;
+    xmlLoader.loadXMLContent(xmlContent);
     int choice;
     do {
         displayOptions();
-        std::cout << "Enter an option: ";
+        spdlog::info("Enter an option: ");
         std::cin >> choice;
 
         switch (choice) {
