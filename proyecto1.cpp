@@ -44,10 +44,9 @@ int main() {
 
         switch (choice) {
         case 1:
-            std::cin.ignore();
+            std::cin.ignore();  // Clear the input buffer
             spdlog::info("Enter the path of the XML file: ");
-            /*std::cin >> filePath;*/
-            std::getline(std::cin, filePath);
+            std::getline(std::cin, filePath);  // Use getline to read the entire line, including spaces
 
             // Check if the input begins and ends with double quotes
             if (!filePath.empty() && filePath.front() == '"' && filePath.back() == '"') {
@@ -57,10 +56,14 @@ int main() {
                 std::replace(filePath.begin(), filePath.end(), '\\', '/');
             }
 
-            if (xmlLoader.loadXMLContent(filePath)) {
-                xmlContent = xmlLoader.getXMLContent();  // Retrieve the XML content from XMLLoader
-                spdlog::info("XML file loaded successfully.");
-                break;
+            try {
+                if (xmlLoader.loadXMLContent(filePath)) {
+                    xmlContent = xmlLoader.getXMLContent();  // Retrieve the XML content from XMLLoader
+                    spdlog::info("XML file loaded successfully.");
+                }
+            }
+            catch (const std::exception& e) {
+                spdlog::error("An error occurred: {}", e.what());
             }
             break;
         case 2:
