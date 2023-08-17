@@ -10,22 +10,31 @@
 
 class XMLLoader {
 public:
-    XMLLoader(const std::string& filePath) : filePath(filePath) {}
+    XMLLoader() : isOpen(false) {}  // Initialize isOpen to false
 
-    bool loadXMLContent(std::string& xmlContent) {
+    bool loadXMLContent(const std::string& filePath) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
             spdlog::error("Error: Unable to open file.");
-            exit(EXIT_FAILURE);
+            return false;
         }
-        
+
         if (filePath.length() < 4 || filePath.substr(filePath.length() - 4) != ".xml") {
             spdlog::error("Error: Filepath must end with '.xml'.");
-            exit(EXIT_FAILURE);
+            return false;
         }
 
         xmlContent.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+        isOpen = true;  // Set isOpen to true when the file is successfully opened
         return true;
+    }
+
+    bool isFileOpen() const {
+        return isOpen;
+    }
+
+    std::string getXMLContent() const {
+        return xmlContent;
     }
 
     bool parseXML(const std::string& xmlContent) {
@@ -75,6 +84,11 @@ private:
 private:
     std::string filePath;
     rapidxml::xml_document<> document;
+
+private:
+    bool isOpen;
+    std::string xmlContent;
 };
+
 
 
