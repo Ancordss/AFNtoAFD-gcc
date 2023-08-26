@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<bookstore>
+  <book>
+    <title>El Gran Gatsby</title>
+    <author>F. Scott Fitzgerald</author>
+    <price currency="USD">12.99</price>
+  </book>
+  <book>
+    <title>1984</title>
+    <author>George Orwell</author>
+    <price currency="GBP">9.99</price>
+  </book>
+</bookstore>
