@@ -1,55 +1,15 @@
-# Variables para los nombres de archivo
-LEXICO_SRC = lexico.l
-SINTAXIS_SRC = sintaxis.y
-ANALIZADOR_EXEC = analizador.exe
-ANALIZADOR_OUTPUT = analizador.output
+all: Bison flex gcc run
 
-# Variables para las rutas completas de los archivos
-LEXICO_C = lex.yy.c
-SINTAXIS_TAB_C = sintaxis.tab.c
-SINTAXIS_TAB_H = sintaxis.tab.h
-
-CLEANFILE_SRC = clean.bat
-
-
-all: flex bison build
-
-clean:
-	$(CLEANFILE_SRC)
+Bison:
+	bison -d grammar.y
 
 flex:
-	flex $(LEXICO_SRC)
+	flex lexical.l
 
-bison:
-	bison -t -v -d $(SINTAXIS_SRC)
+gcc:
+	gcc -c lex.yy.c -o lex.yy.o
+	gcc -c grammar.tab.c -o grammar.tab.o
+	gcc lex.yy.o grammar.tab.o -o myParser.exe
 
-build:
-	gcc -o $(ANALIZADOR_EXEC) $(SINTAXIS_TAB_C) $(LEXICO_C)
-
-run:
-	./$(ANALIZADOR_EXEC) test.xml
-
-
-
-# all: flex bison build
-
-# clean:
-# 	rm .\sintaxis.tab.c 
-# 	rm .\lex.yy.c 
-# 	rm .\sintaxis.tab.h 
-# 	rm .\analizador.output
-
-# flex:
-# 	flex lexico.l
-
-# bison:
-# 	bison -t -v -d sintaxis.y
-
-# build:
-# 	gcc -o analizador sintaxis.tab.c lex.yy.c
-
-# run:
-# 	./analizador test.xml
-
-
-
+run: 
+	./myParser.exe CodeXML.xml

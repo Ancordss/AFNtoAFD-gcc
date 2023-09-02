@@ -362,5 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-extra_libraries/rapidxml-1.13
-extra_libraries/spdlog-1.12.0
+old/extra_libraries/rapidxml-1.13
+old/extra_libraries/spdlog-1.12.0
