@@ -119,7 +119,7 @@ char used_checkb[MAX_USED_IDS][MAX_ID_LENGTH];
 char check_radiob[MAX_USED_IDS][MAX_ID_LENGTH];
 int flag_radio_button=0;
 
-// vars
+// vars james
 char* var1; // Variable para el primer T_STRING
 char* var2; // Variable para el segundo T_STRING
 int found_match = 0; // Bandera para indicar si se encontró una coincidencia
@@ -228,7 +228,11 @@ enum yysymbol_kind_t
   YYSYMBOL_finalesattributes = 57,         /* finalesattributes  */
   YYSYMBOL_transicionales = 58,            /* transicionales  */
   YYSYMBOL_transicionalesattributes = 59,  /* transicionalesattributes  */
-  YYSYMBOL_element = 60                    /* element  */
+  YYSYMBOL_60_1 = 60,                      /* $@1  */
+  YYSYMBOL_61_2 = 61,                      /* $@2  */
+  YYSYMBOL_62_3 = 62,                      /* $@3  */
+  YYSYMBOL_63_4 = 63,                      /* $@4  */
+  YYSYMBOL_element = 64                    /* element  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -561,11 +565,11 @@ union yyalloc
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  49
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  12
+#define YYNNTS  16
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  20
+#define YYNRULES  24
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  76
+#define YYNSTATES  80
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   303
@@ -619,9 +623,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   152,   152,   153,   160,   161,   165,   238,   241,   242,
-     243,   246,   249,   252,   253,   256,   259,   305,   306,   307,
-     308
+       0,   152,   152,   153,   160,   161,   165,   179,   182,   183,
+     184,   187,   190,   193,   194,   197,   201,   216,   239,   262,
+     200,   324,   325,   326,   327
 };
 #endif
 
@@ -649,7 +653,8 @@ static const char *const yytname[] =
   "\"}\"", "T_AT", "\"@\"", "\"?\"", "\"_\"", "\"#\"", "\"'\"", "$accept",
   "program", "linearlayout", "linearlayoutattributes", "estados",
   "estadosattributes", "iniciales", "finales", "finalesattributes",
-  "transicionales", "transicionalesattributes", "element", YY_NULLPTR
+  "transicionales", "transicionalesattributes", "$@1", "$@2", "$@3", "$@4",
+  "element", YY_NULLPTR
 };
 
 static const char *
@@ -678,9 +683,9 @@ static const yytype_int8 yypact[] =
       18,    23,    23,     9,    22,    20,   -12,   -12,   -12,    11,
       24,   -12,    25,    25,   -12,   -12,   -12,   -12,    26,    27,
      -12,    28,   -12,    21,    29,   -12,     3,   -12,    30,    31,
-      32,    33,     7,    34,    36,    37,    35,    38,    39,    41,
-      42,    40,    43,    44,    45,    46,    47,    48,    49,    51,
-      56,    50,    52,    53,    57,   -12
+     -12,    32,    33,     7,    34,    36,    37,    35,    38,    39,
+      41,   -12,    42,    40,    43,    44,    45,   -12,    46,    47,
+      48,    49,    51,   -12,    56,    50,    52,    53,    57,   -12
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -688,28 +693,28 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     0,     0,    20,     1,     0,
-       0,     0,     6,     0,     0,    20,    20,    20,     0,     0,
-       0,     0,     0,     0,    13,     0,    17,    18,    19,     4,
+       0,     0,     0,     0,     0,     0,     0,    24,     1,     0,
+       0,     0,     6,     0,     0,    24,    24,    24,     0,     0,
+       0,     0,     0,     0,    13,     0,    21,    22,    23,     4,
        8,     7,     0,     0,    11,    14,    12,     5,    10,     0,
        3,     0,     9,     0,     0,     2,     0,    15,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,    16
+      16,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,    17,     0,     0,     0,     0,     0,    18,     0,     0,
+       0,     0,     0,    19,     0,     0,     0,     0,     0,    20
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
      -12,   -12,    -1,   -12,     5,   -12,     1,    -8,   -12,     6,
-     -12,   -11
+     -12,   -12,   -12,   -12,   -12,   -11
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
        0,     3,     4,     7,    15,    20,    16,    17,    25,    40,
-      44,    18
+      44,    51,    62,    68,    74,    18
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -719,13 +724,13 @@ static const yytype_int8 yytable[] =
 {
        5,     9,    13,    14,    26,    27,    28,     1,     2,    10,
       11,    21,    22,    32,    33,     2,     6,     8,     9,    12,
-      19,    13,    23,    34,    24,    48,    53,    29,    37,    30,
+      19,    13,    23,    34,    24,    48,    54,    29,    37,    30,
       14,    31,    35,    39,    38,    36,    42,    43,     0,    41,
-      45,    50,    51,     0,     0,    47,    55,    56,     0,     0,
-      46,    60,    61,     0,     0,    65,    66,     0,     0,    49,
-      58,    70,    52,    54,    57,    63,    71,    75,    59,    62,
-      68,     0,     0,    64,    73,     0,    67,     0,    69,    72,
-       0,     0,    74
+      45,    50,    52,     0,     0,    47,    56,    57,     0,     0,
+      46,    61,    63,     0,     0,    67,    69,     0,     0,    49,
+      59,    73,    53,    55,    58,    65,    75,    79,    60,    64,
+      71,     0,     0,    66,    77,     0,    70,     0,    72,    76,
+       0,     0,    78
 };
 
 static const yytype_int8 yycheck[] =
@@ -746,29 +751,29 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,     3,     4,    50,    51,    51,    22,    52,     0,     5,
-      53,    53,    22,     6,     7,    53,    55,    56,    60,    10,
-      54,    55,    55,    10,    10,    57,    60,    60,    60,    11,
+      53,    53,    22,     6,     7,    53,    55,    56,    64,    10,
+      54,    55,    55,    10,    10,    57,    64,    64,    64,    11,
       10,    13,    56,    56,    14,    10,    15,    51,    10,     8,
       58,    58,    10,    10,    59,    12,    29,    16,    22,    29,
-      10,    10,    29,    19,    29,    10,    10,    29,    22,    29,
-      10,    10,    29,    22,    29,    10,    10,    29,    22,    29,
-      10,    10,    29,    22,    29,    10
+      10,    60,    10,    29,    19,    29,    10,    10,    29,    22,
+      29,    10,    61,    10,    29,    22,    29,    10,    62,    10,
+      29,    22,    29,    10,    63,    10,    29,    22,    29,    10
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
        0,    49,    50,    50,    51,    51,    52,    53,    54,    54,
-      54,    55,    56,    57,    57,    58,    59,    60,    60,    60,
-      60
+      54,    55,    56,    57,    57,    58,    60,    61,    62,    63,
+      59,    64,    64,    64,    64
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     7,     5,     4,     5,     2,     3,     2,     4,
-       3,     3,     3,     1,     2,     3,    30,     2,     2,     2,
-       0
+       3,     3,     3,     1,     2,     3,     0,     0,     0,     0,
+      34,     2,     2,     2,     0
 };
 
 
@@ -1507,23 +1512,37 @@ yyreduce:
     var1 = strdup((yyvsp[-1].strval)); // Almacena el valor del primer T_STRING en var1
     var2 = strdup((yyvsp[0].strval)); // Almacena el valor del segundo T_STRING en var2
 }
-#line 1511 "grammar.tab.c"
+#line 1516 "grammar.tab.c"
     break;
 
-  case 16: /* transicionalesattributes: T_INT T_COMMA T_STRING T_COMMA T_INT T_INT T_COMMA T_SIMBOLO T_COMMA T_INT T_INT T_COMMA T_STRING T_COMMA T_INT T_INT T_COMMA T_STRING T_COMMA T_INT T_INT T_COMMA T_STRING T_COMMA T_INT T_INT T_COMMA T_STRING T_COMMA T_INT  */
-#line 265 "grammar.y"
+  case 16: /* $@1: %empty  */
+#line 201 "grammar.y"
+                         {
+                             int error_line = lineno;
+
+                             if (strcmp((yyvsp[-2].strval), var1) != 0 && strcmp((yyvsp[-2].strval), var2) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, var1, var2, (yyvsp[-2].strval));
+                                    yyerror(error_message);
+                                }
+
+                         }
+#line 1532 "grammar.tab.c"
+    break;
+
+  case 17: /* $@2: %empty  */
+#line 216 "grammar.y"
                          {
                              int found = 0;
                              int error_line = lineno;
 
-                             if (strcmp((yyvsp[-27].strval), var1) != 0 && strcmp((yyvsp[-23].strval), var1) != 0 && strcmp((yyvsp[-19].strval), var1) != 0 &&
-                                 strcmp((yyvsp[-15].strval), var1) != 0 && strcmp((yyvsp[-11].strval), var1) != 0 && strcmp((yyvsp[-7].strval), var1) != 0)
+                             if (strcmp((yyvsp[-13].strval), var1) != 0)
                              {
                                  found = 1;
                              }
 
-                             if (strcmp((yyvsp[-27].strval), var2) != 0 && strcmp((yyvsp[-23].strval), var2) != 0 && strcmp((yyvsp[-19].strval), var2) != 0 &&
-                                 strcmp((yyvsp[-15].strval), var2) != 0 && strcmp((yyvsp[-11].strval), var2) != 0 && strcmp((yyvsp[-7].strval), var2) != 0)
+                             if (strcmp((yyvsp[-13].strval), var2) != 0)
                              {
                                  found = 1;
                              }
@@ -1535,11 +1554,89 @@ yyreduce:
                                  yyerror(error_message);
                              }
                          }
-#line 1539 "grammar.tab.c"
+#line 1558 "grammar.tab.c"
+    break;
+
+  case 18: /* $@3: %empty  */
+#line 239 "grammar.y"
+                         {
+                             int found = 0;
+                             int error_line = lineno;
+
+                             if (strcmp((yyvsp[-19].strval), var1) != 0)
+                             {
+                                 found = 1;
+                             }
+
+                             if (strcmp((yyvsp[-19].strval), var2) != 0)
+                             {
+                                 found = 1;
+                             }
+
+                             if (found == 1)
+                             {
+                                 char error_message[100];
+                                 sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO ", error_line, var1, var2);
+                                 yyerror(error_message);
+                             }
+                         }
+#line 1584 "grammar.tab.c"
+    break;
+
+  case 19: /* $@4: %empty  */
+#line 262 "grammar.y"
+                         {
+                             int found = 0;
+                             int error_line = lineno;
+
+                             if (strcmp((yyvsp[-25].strval), var1) != 0)
+                             {
+                                 found = 1;
+                             }
+
+                             if (strcmp((yyvsp[-25].strval), var2) != 0)
+                             {
+                                 found = 1;
+                             }
+
+                             if (found == 1)
+                             {
+                                 char error_message[100];
+                                 sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO ", error_line, var1, var2);
+                                 yyerror(error_message);
+                             }
+                         }
+#line 1610 "grammar.tab.c"
+    break;
+
+  case 20: /* transicionalesattributes: T_INT T_COMMA T_STRING T_COMMA T_INT $@1 T_INT T_COMMA T_SIMBOLO T_COMMA T_INT T_INT T_COMMA T_STRING T_COMMA T_INT $@2 T_INT T_COMMA T_STRING T_COMMA T_INT $@3 T_INT T_COMMA T_STRING T_COMMA T_INT $@4 T_INT T_COMMA T_STRING T_COMMA T_INT  */
+#line 285 "grammar.y"
+                         {
+                             int found = 0;
+                             int error_line = lineno;
+
+                             if (strcmp((yyvsp[-31].strval), var1) != 0)
+                             {
+                                 found = 1;
+                             }
+
+                             if (strcmp((yyvsp[-31].strval), var2) != 0)
+                             {
+                                 found = 1;
+                             }
+
+                             if (found == 1)
+                             {
+                                 char error_message[100];
+                                 sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO ", error_line, var1, var2);
+                                 yyerror(error_message);
+                             }
+                         }
+#line 1636 "grammar.tab.c"
     break;
 
 
-#line 1543 "grammar.tab.c"
+#line 1640 "grammar.tab.c"
 
       default: break;
     }
@@ -1763,7 +1860,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 314 "grammar.y"
+#line 333 "grammar.y"
 
 
 int main(int argc, char *argv[]){

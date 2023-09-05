@@ -198,35 +198,73 @@ transicionales:         T_TRANSICIONES transicionalesattributes T_END_TRANSICION
                         ;
 
 transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
-                         T_INT T_COMMA T_SIMBOLO T_COMMA  T_INT
-                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
-                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
-                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
-                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          {
-                             int found = 0;
                              int error_line = lineno;
 
-                             if (strcmp($3, var1) != 0 && strcmp($7, var1) != 0 && strcmp($11, var1) != 0 &&
-                                 strcmp($15, var1) != 0 && strcmp($19, var1) != 0 && strcmp($23, var1) != 0)
-                             {
-                                 found = 1;
-                             }
+                             if (strcmp($3, var1) != 0 && strcmp($3, var2) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, var1, var2, $3);
+                                    yyerror(error_message);
+                                }
 
-                             if (strcmp($3, var2) != 0 && strcmp($7, var2) != 0 && strcmp($11, var2) != 0 &&
-                                 strcmp($15, var2) != 0 && strcmp($19, var2) != 0 && strcmp($23, var2) != 0)
-                             {
-                                 found = 1;
-                             }
-
-                             if (found == 1)
-                             {
-                                 char error_message[100];
-                                 sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO ", error_line, var1, var2);
-                                 yyerror(error_message);
-                             }
                          }
-                          ;
+                          
+                         T_INT T_COMMA T_SIMBOLO T_COMMA  T_INT
+                          
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                             int error_line = lineno;
+
+                             if (strcmp($3, var1) != 0 && strcmp($3, var2) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, var1, var2, $3);
+                                    yyerror(error_message);
+                                }
+
+                         }
+                          
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                             int error_line = lineno;
+
+                             if (strcmp($3, var1) != 0 && strcmp($3, var2) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, var1, var2, $3);
+                                    yyerror(error_message);
+                                }
+
+                         }
+                          
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                             int error_line = lineno;
+
+                             if (strcmp($3, var1) != 0 && strcmp($3, var2) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, var1, var2, $3);
+                                    yyerror(error_message);
+                                }
+
+                         }
+                        
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                             int error_line = lineno;
+
+                             if (strcmp($3, var1) != 0 && strcmp($3, var2) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, var1, var2, $3);
+                                    yyerror(error_message);
+                                }
+
+                         }
+                         ;
+                          
 
 
                              

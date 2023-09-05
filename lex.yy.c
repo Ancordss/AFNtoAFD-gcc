@@ -601,7 +601,7 @@ extern void yyerror(char *message);
 int lineno=1; 
 int line_init=-1; 
 
-/*Κρατάμε το πόσα errors έχουν προκύψει*/
+
 char str_buf[256];
 char* str_buf_ptr;
 
@@ -1098,7 +1098,7 @@ YY_RULE_SETUP
 case 39:
 YY_RULE_SETUP
 #line 106 "lexical.l"
-{   } /*Αναγνώριση κενών και \n */     
+{   }  
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(STATE_COMMENT):
