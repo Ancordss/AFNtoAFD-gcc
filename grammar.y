@@ -49,6 +49,10 @@ char used_checkb[MAX_USED_IDS][MAX_ID_LENGTH];
 char check_radiob[MAX_USED_IDS][MAX_ID_LENGTH];
 int flag_radio_button=0;
 
+// vars james
+char* var1; // Variable para el primer T_STRING
+char* var2; // Variable para el segundo T_STRING
+int found_match = 0; // Bandera para indicar si se encontró una coincidencia
 
 
 /*Specific Functions*/
@@ -145,7 +149,7 @@ void check_values();
 
 /*Grammar Rules*/
 
-program :                 T_AUTOMATA_AFN linearlayout estados iniciales finales transicionales
+program :                 T_AUTOMATA_AFN linearlayout estados iniciales finales transicionales T_END_AUTOMATA_AFN
                         | linearlayout estados iniciales finales transicionales //gia na min psaxnei duo fores to <Relative paei sto relativelayout2 poy exei kateuthian ta attributes
                         ;
 
@@ -157,82 +161,16 @@ linearlayout:              T_ALFABETO linearlayoutattributes element T_END_ALFAB
                         |  T_ALFABETO linearlayoutattributes element  T_END_ALFABETO linearlayout
                         ;
                               
-linearlayout2:              linearlayoutattributes T_END_TAG element  T_END_AUTOMATA_AFN
-                        |   linearlayoutattributes T_END_TAG element  T_END_AUTOMATA_AFN linearlayout
-                        |   linearlayoutattributes T_END_TAG element element T_END_AUTOMATA_AFN
-                        ;                      
-                       
                         
-linearlayoutattributes:       T_STRING T_STRING 
-                            | T_STRING T_STRING  element 
-                            | T_STRING T_STRING  element 
-                            | T_STRING T_STRING  element comment
-                            | T_STRING T_STRING element 
-                            ;
+linearlayoutattributes: T_STRING T_STRING {
+    var1 = strdup($1); // Almacena el valor del primer T_STRING en var1
+    var2 = strdup($2); // Almacena el valor del segundo T_STRING en var2
+}
 
-letra_a:               T_LETRA_A  // T_STRING //for strings "android:layout_width=" 
-//                            {  
-//                             if (strcmp($1, "android:layout_width=") == 0 || flag==1) {  //ama to flag exei ginei 1 exei mpei hdh mia fora kai einai swsto to android opote meta tha pairnei to string apla
-//                                   //printf("EDW TO FLAG :\t%d\t",flag);
-//                                   flag=1;
-//                                if (strcmp($2, "\"match_parent\"") == 0 || strcmp($2, "\"wrap_content\"") == 0){   //|| strcmp($2, T_DIMENSION) == 0 || strcmp($2, T_PERCENTAGE) == 0) {
-//                                   //printf("%s = %s\n", $1, $2);
-//                                   valueflag=1;
-//                                 } 
-                                 
-//                                 }
-//                             else 
-//                               yyerror("Expected android:layout_width=");
-
-//                             if(valueflag==0 ) //an ta string != value poy prepei na exoyn
-//                                   {
-//                                     printf("Invalid value for android:layout_width: %s\n", $2);
-//                                     yyerror("Invalid value.");
-//                                   } 
-//                            }
-
-//                            | T_ANDROID_LAYOUT_WIDTH T_QUESTION_MARK
-//                            {
-//                             printf("\nWrong!\n");
-//                             yyerror("Invalid value.");
-//                            }
-
-//                            |T_ANDROID_LAYOUT_WIDTH T_POSITIVE_INTEGER{
-                            
-//                             flag=0;
-//                             if(strcmp($1, "android:layout_width=") == 0 || flag == 1){
-//                                flag=1;
-//                                pos_number=atoi($2);
-//                                //printf("%s = %d\n", $1, pos_number);
-//                                }
-//                             else yyerror("Expected android:layout_width=");
-//                            }
-//                            ;
-
+letra_a:               T_LETRA_A  
                             
 
-letra_b:               T_LETRA_B  //T_STRING //  "android:layout_height=" 
-//                             {   flag=0;
-//                             if (strcmp($1, "android:layout_height=") == 0 || flag == 1) {\
-//                                 flag=1;
-//                                if (strcmp($2, "\"match_parent\"") == 0 || strcmp($2, "\"wrap_content\"") == 0){ // || strcmp($2, T_DIMENSION) == 0 || strcmp($2, T_PERCENTAGE) == 0) {
-//                                   //printf("%s = %s\n", $1, $2);
-//                                 } else 
-//                                    printf("Invalid value for android:layout_height: %s\n", $2);
-//                                 }
-//                             else 
-//                               yyerror("Expected android:layout_height=");
-//                             }
-//                            |T_ANDROID_LAYOUT_HEIGHT T_POSITIVE_INTEGER{
-//                             flag=0;
-//                             if(strcmp($1, "android:layout_height=") == 0 || flag==1){
-//                                 flag=1;
-//                                pos_number=atoi($2);
-//                                //printf("%s = %d\n", $1, pos_number);
-//                                }
-//                             else yyerror("Expected android:layout_height=");
-//                             }
-//                             ;
+letra_b:               T_LETRA_B 
 
                         
 simbolos: T_SIMBOLO
@@ -265,7 +203,31 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
-                          ; 
+                         {
+                             int found = 0;
+                             int error_line = lineno;
+
+                             if (strcmp($3, var1) != 0 && strcmp($7, var1) != 0 && strcmp($11, var1) != 0 &&
+                                 strcmp($15, var1) != 0 && strcmp($19, var1) != 0 && strcmp($23, var1) != 0)
+                             {
+                                 found = 1;
+                             }
+
+                             if (strcmp($3, var2) != 0 && strcmp($7, var2) != 0 && strcmp($11, var2) != 0 &&
+                                 strcmp($15, var2) != 0 && strcmp($19, var2) != 0 && strcmp($23, var2) != 0)
+                             {
+                                 found = 1;
+                             }
+
+                             if (found == 1)
+                             {
+                                 char error_message[100];
+                                 sprintf(error_message, "At least one T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO ", error_line, var1, var2);
+                                 yyerror(error_message);
+                             }
+                         }
+                          ;
+
 
                              
 comment:                 T_COMMENT_OPEN T_STRING T_COMMENT_CLOSE
@@ -285,7 +247,7 @@ element:                  estados element
                         | iniciales element
                         | finales element             
                         |%empty
-                        ;                /*ebgala to linear*/
+                        ;               
                        
 
 

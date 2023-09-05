@@ -16,7 +16,7 @@ extern void yyerror(char *message);
 int lineno=1; 
 int line_init=-1; 
 
-/*Κρατάμε το πόσα errors έχουν προκύψει*/
+
 char str_buf[256];
 char* str_buf_ptr;
 
@@ -103,7 +103,7 @@ WHITESPACE          [ \t]
 "_"                                           { token_print(T_UNDERSCORE); yylval.strval=strdup(yytext); return T_UNDERSCORE;}
 "#"                                           { token_print(T_HASH); yylval.strval=strdup(yytext); return T_HASH;}
 "'"                                           { token_print(T_SQUOTES); yylval.strval=strdup(yytext); return T_SQUOTES;}
-[  \t]+                                         {   } /*Αναγνώριση κενών και \n */     
+[  \t]+                                         {   }  
 <<EOF>>                                       { token_print(T_EOF); yylval.strval=strdup(yytext); return T_EOF;}
 .                                             { printf("UNRECOGNIZED_CHAR: %s\n", yytext); }
 
