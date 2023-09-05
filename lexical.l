@@ -51,50 +51,36 @@ WHITESPACE          [ \t]
 
 %%
 
-"<AUTOMATA_AFN>"                                             { token_print(T_LINEAR_LAYOUT); yylval.strval=strdup(yytext); return T_LINEAR_LAYOUT;}
-"<ALFABETO>"                                                  { token_print(T_ALFABETO); yylval.strval=strdup(yytext); return T_ALFABETO;}
-"<RelativeLayout"                                             { token_print(T_RELATIVE_LAYOUT); yylval.strval=strdup(yytext); return T_RELATIVE_LAYOUT;}
-"<TextView>"                                             { token_print(T_TEXT_VIEW); yylval.strval=strdup(yytext); return T_TEXT_VIEW;}
-"<ImageView"                                             { token_print(T_IMAGE_VIEW); yylval.strval=strdup(yytext); return T_IMAGE_VIEW;}
-"<Button"                                             { token_print( T_BUTTON); yylval.strval=strdup(yytext); return T_BUTTON;}
-"<RadioButton"                                             { token_print( T_RADIO_BUTTON); yylval.strval=strdup(yytext); return T_RADIO_BUTTON;}
-"<RadioGroup"                                             { token_print( T_RADIO_GROUP); yylval.strval=strdup(yytext); return T_RADIO_GROUP;}
-"<ProgressBar"                                             { token_print( T_PROGRESS_BAR); yylval.strval=strdup(yytext); return T_PROGRESS_BAR;}
+"<AUTOMATA_AFN>"                                { token_print(T_AUTOMATA_AFN); yylval.strval=strdup(yytext); return T_AUTOMATA_AFN;}
+"<ALFABETO>"                                    { token_print(T_ALFABETO); yylval.strval=strdup(yytext); return T_ALFABETO;}
+"<ESTADO>"                                      { token_print(T_ESTADO); yylval.strval=strdup(yytext); return T_ESTADO;}
+"<INICIAL>"                                     { token_print(T_INICIAL); yylval.strval=strdup(yytext); return T_INICIAL;}
+"<FINAL>"                                       { token_print(T_FINAL); yylval.strval=strdup(yytext); return T_FINAL;}
+"<TRANSICIONES>"                                { token_print(T_TRANSICIONES); yylval.strval=strdup(yytext); return T_TRANSICIONES;}
 ">"                                             { token_print( T_END_TAG);   yylval.strval=strdup(yytext); return T_END_TAG;}
 "/>"                                            { token_print( T_SLASH_END_TAG);   yylval.strval=strdup(yytext); return T_SLASH_END_TAG;}
 
-"</AUTOMATA_AFN>"                                { token_print(T_END_LINEAR_LAYOUT); yylval.strval=strdup(yytext); return T_END_LINEAR_LAYOUT;}
-"</ALFABETO>"                                    { token_print(T_END_ALFABETO); yylval.strval=strdup(yytext); return T_END_ALFABETO;}
-"</RelativeLayout>"                              { token_print(T_END_RELATIVE_LAYOUT); yylval.strval=strdup(yytext); return T_END_RELATIVE_LAYOUT;}
-"</TextView>"                                    { token_print(T_END_TEXT_VIEW); yylval.strval=strdup(yytext); return T_END_TEXT_VIEW;}
-"</ImageView>"                                   { token_print(T_END_IMAGE_VIEW); yylval.strval=strdup(yytext); return T_END_IMAGE_VIEW;}
-"</Button>"                                      { token_print(T_END_BUTTON); yylval.strval=strdup(yytext);  return T_END_BUTTON;}
-"</RadioButton>"                                 { token_print(T_END_RADIO_BUTTON); yylval.strval=strdup(yytext); return T_END_RADIO_BUTTON;}
-"</RadioGroup>"                                  { token_print(T_END_RADIO_GROUP); yylval.strval=strdup(yytext);  return T_END_RADIO_GROUP;}
-"</ProgressBar>"                                 { token_print(T_END_PROGRESS_BAR); yylval.strval=strdup(yytext);  return T_END_PROGRESS_BAR;}
 
-"a"                           {token_print(T_ANDROID_LAYOUT_WIDTH);yylval.strval=strdup(yytext);return T_ANDROID_LAYOUT_WIDTH;}
-"b"                          {token_print(T_ANDROID_LAYOUT_HEIGHT); yylval.strval=strdup(yytext); return T_ANDROID_LAYOUT_HEIGHT;}
-"android:id="                                     {token_print(T_ANDROID_ID); yylval.strval=strdup(yytext); return T_ANDROID_ID;}
-"android:text="                                   {token_print(T_ANDROID_TEXT); yylval.strval=strdup(yytext); return T_ANDROID_TEXT;}
-"android:orientation="                            {token_print(T_ANDROID_ORIENTATION); yylval.strval=strdup(yytext); return T_ANDROID_ORIENTATION;}
-"android:src="                                    {token_print(T_ANDROID_SRC); yylval.strval=strdup(yytext); return T_ANDROID_SRC;}
-"android:padding="                                {token_print(T_ANDROID_PADDING); yylval.strval=strdup(yytext); return T_ANDROID_PADDING;}
-"android:textColor="                              {token_print(T_ANDROID_TEXTCOLOR); yylval.strval=strdup(yytext); return T_ANDROID_TEXTCOLOR;}
-"android:checkedButton="                          {token_print(T_ANDROID_CHECKEDBUTTON); yylval.strval=strdup(yytext); return T_ANDROID_CHECKEDBUTTON;}
-"android:progress="                               {token_print(T_ANDROID_PROGRESS); yylval.strval=strdup(yytext); return T_ANDROID_PROGRESS;}
-"android:max="                                    {token_print(T_ANDROID_MAX); yylval.strval=strdup(yytext); return T_ANDROID_MAX;}
-"radio_button_child_count="                       {token_print(T_RADIO_BUTTON_CHILD_COUNT); yylval.strval = strdup(yytext); return T_RADIO_BUTTON_CHILD_COUNT; }
-"0"                      {token_print(T_ESTADO_0);yylval.strval=strdup(yytext);return T_ESTADO_0;}
-"1"                      {token_print(T_ESTADO_1);yylval.strval=strdup(yytext);return T_ESTADO_1;}
-"2"                      {token_print(T_ESTADO_2);yylval.strval=strdup(yytext);return T_ESTADO_2;}
-"3"                      {token_print(T_ESTADO_3);yylval.strval=strdup(yytext);return T_ESTADO_3;}
+"</AUTOMATA_AFN>"                               { token_print(T_END_AUTOMATA_AFN); yylval.strval=strdup(yytext); return T_END_AUTOMATA_AFN;}
+"</ALFABETO>"                                   { token_print(T_END_ALFABETO); yylval.strval=strdup(yytext); return T_END_ALFABETO;}
+"</ESTADO>"                                     { token_print(T_END_ESTADO); yylval.strval=strdup(yytext); return T_END_ESTADO;}
+"</INICIAL>"                                    { token_print(T_END_INICIAL); yylval.strval=strdup(yytext); return T_END_INICIAL;}
+"</FINAL>"                                      { token_print(T_END_FINAL); yylval.strval=strdup(yytext); return T_END_FINAL;}
+"</TRANSICIONES>"                               { token_print(T_END_TRANSICIONES); yylval.strval=strdup(yytext); return T_END_TRANSICIONES;}
+
+
+
+"arroz"                           {token_print(T_LETRA_A);yylval.strval=strdup(yytext);return T_LETRA_A;}
+"burro"                          {token_print(T_LETRA_B); yylval.strval=strdup(yytext); return T_LETRA_B;}
+"&"                          {token_print(T_SIMBOLO); yylval.strval=strdup(yytext); return T_SIMBOLO;}
+
 
 
 \"[1-9][0-9]*\"                                 { token_print(T_POSITIVE_INTEGER); yylval.strval=strdup(yytext); return T_POSITIVE_INTEGER;}  
-\"[a-zA-Z0-9_\-\.]*\"                           { token_print(T_STRING); yylval.strval=strdup(yytext); return T_STRING;}
+[a-zA-Z]                           { token_print(T_STRING); yylval.strval=strdup(yytext); return T_STRING;}
 \'[a-zA-Z0-9_\-\.]*\'                           { token_print(T_STRING_SINGLE_QUOTE); yylval.strval=strdup(yytext); return T_STRING_SINGLE_QUOTE;}  
 \"[a-zA-Z0-9_\-\.]*" "[a-zA-Z0-9_\-\.]*\"       { token_print(T_STRING_DQ_SPACE); yylval.strval=strdup(yytext); return T_STRING_DQ_SPACE;}
+[0-9]+		{token_print(T_INT); yylval.strval=strdup(yytext); return T_INT;}
 
 
 

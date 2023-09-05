@@ -167,102 +167,65 @@ enum yysymbol_kind_t
   YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
-  YYSYMBOL_T_LINEAR_LAYOUT = 3,            /* T_LINEAR_LAYOUT  */
+  YYSYMBOL_T_AUTOMATA_AFN = 3,             /* T_AUTOMATA_AFN  */
   YYSYMBOL_T_ALFABETO = 4,                 /* T_ALFABETO  */
-  YYSYMBOL_T_RELATIVE_LAYOUT = 5,          /* T_RELATIVE_LAYOUT  */
-  YYSYMBOL_T_TEXT_VIEW = 6,                /* T_TEXT_VIEW  */
-  YYSYMBOL_T_IMAGE_VIEW = 7,               /* T_IMAGE_VIEW  */
-  YYSYMBOL_T_BUTTON = 8,                   /* T_BUTTON  */
-  YYSYMBOL_T_RADIO_BUTTON = 9,             /* T_RADIO_BUTTON  */
-  YYSYMBOL_T_RADIO_GROUP = 10,             /* T_RADIO_GROUP  */
-  YYSYMBOL_T_PROGRESS_BAR = 11,            /* T_PROGRESS_BAR  */
-  YYSYMBOL_T_END_TAG = 12,                 /* T_END_TAG  */
-  YYSYMBOL_T_END_ALFABETO = 13,            /* T_END_ALFABETO  */
-  YYSYMBOL_T_END_LINEAR_LAYOUT = 14,       /* T_END_LINEAR_LAYOUT  */
-  YYSYMBOL_T_END_RELATIVE_LAYOUT = 15,     /* T_END_RELATIVE_LAYOUT  */
-  YYSYMBOL_T_END_TEXT_VIEW = 16,           /* T_END_TEXT_VIEW  */
-  YYSYMBOL_T_END_IMAGE_VIEW = 17,          /* T_END_IMAGE_VIEW  */
-  YYSYMBOL_T_END_BUTTON = 18,              /* T_END_BUTTON  */
-  YYSYMBOL_T_END_RADIO_BUTTON = 19,        /* T_END_RADIO_BUTTON  */
-  YYSYMBOL_T_END_RADIO_GROUP = 20,         /* T_END_RADIO_GROUP  */
-  YYSYMBOL_T_END_PROGRESS_BAR = 21,        /* T_END_PROGRESS_BAR  */
-  YYSYMBOL_T_ANDROID_LAYOUT_WIDTH = 22,    /* T_ANDROID_LAYOUT_WIDTH  */
-  YYSYMBOL_T_ANDROID_LAYOUT_HEIGHT = 23,   /* T_ANDROID_LAYOUT_HEIGHT  */
-  YYSYMBOL_T_ANDROID_ID = 24,              /* T_ANDROID_ID  */
-  YYSYMBOL_T_ANDROID_TEXT = 25,            /* T_ANDROID_TEXT  */
-  YYSYMBOL_T_ANDROID_ORIENTATION = 26,     /* T_ANDROID_ORIENTATION  */
-  YYSYMBOL_T_ANDROID_SRC = 27,             /* T_ANDROID_SRC  */
-  YYSYMBOL_T_ANDROID_PADDING = 28,         /* T_ANDROID_PADDING  */
-  YYSYMBOL_T_ANDROID_TEXTCOLOR = 29,       /* T_ANDROID_TEXTCOLOR  */
-  YYSYMBOL_T_ANDROID_CHECKEDBUTTON = 30,   /* T_ANDROID_CHECKEDBUTTON  */
-  YYSYMBOL_T_RADIO_BUTTON_CHILD_COUNT = 31, /* T_RADIO_BUTTON_CHILD_COUNT  */
-  YYSYMBOL_T_ANDROID_PROGRESS = 32,        /* T_ANDROID_PROGRESS  */
-  YYSYMBOL_T_ANDROID_MAX = 33,             /* T_ANDROID_MAX  */
-  YYSYMBOL_T_COMMENT_OPEN = 34,            /* T_COMMENT_OPEN  */
-  YYSYMBOL_T_COMMENT_CLOSE = 35,           /* T_COMMENT_CLOSE  */
-  YYSYMBOL_T_STRING = 36,                  /* T_STRING  */
-  YYSYMBOL_T_STRING_SINGLE_QUOTE = 37,     /* T_STRING_SINGLE_QUOTE  */
-  YYSYMBOL_T_POSITIVE_INTEGER = 38,        /* T_POSITIVE_INTEGER  */
-  YYSYMBOL_T_SLASH_END_TAG = 39,           /* T_SLASH_END_TAG  */
-  YYSYMBOL_T_STRING_DQ_SPACE = 40,         /* T_STRING_DQ_SPACE  */
-  YYSYMBOL_T_ESTADO_0 = 41,                /* T_ESTADO_0  */
-  YYSYMBOL_T_ESTADO_1 = 42,                /* T_ESTADO_1  */
-  YYSYMBOL_T_ESTADO_2 = 43,                /* T_ESTADO_2  */
-  YYSYMBOL_T_ESTADO_3 = 44,                /* T_ESTADO_3  */
-  YYSYMBOL_T_DOT = 45,                     /* T_DOT  */
-  YYSYMBOL_46_ = 46,                       /* "."  */
-  YYSYMBOL_T_COMMA = 47,                   /* T_COMMA  */
-  YYSYMBOL_48_ = 48,                       /* ","  */
-  YYSYMBOL_T_ASSIGN = 49,                  /* T_ASSIGN  */
-  YYSYMBOL_50_ = 50,                       /* "="  */
-  YYSYMBOL_T_COLON = 51,                   /* ":"  */
-  YYSYMBOL_T_LBRACK = 52,                  /* T_LBRACK  */
-  YYSYMBOL_53_ = 53,                       /* "["  */
-  YYSYMBOL_T_RBRACK = 54,                  /* T_RBRACK  */
-  YYSYMBOL_55_ = 55,                       /* "]"  */
-  YYSYMBOL_T_SLASH = 56,                   /* "/"  */
-  YYSYMBOL_T_EXCLAMATION = 57,             /* "!"  */
-  YYSYMBOL_T_DASH = 58,                    /* "-"  */
-  YYSYMBOL_T_LBRACES = 59,                 /* "{"  */
-  YYSYMBOL_T_RBRACES = 60,                 /* "}"  */
-  YYSYMBOL_T_AT = 61,                      /* T_AT  */
-  YYSYMBOL_62_ = 62,                       /* "@"  */
-  YYSYMBOL_T_QUESTION_MARK = 63,           /* "?"  */
-  YYSYMBOL_T_UNDERSCORE = 64,              /* "_"  */
-  YYSYMBOL_T_HASH = 65,                    /* "#"  */
-  YYSYMBOL_T_SQUOTES = 66,                 /* "'"  */
-  YYSYMBOL_YYACCEPT = 67,                  /* $accept  */
-  YYSYMBOL_program = 68,                   /* program  */
-  YYSYMBOL_linearlayout = 69,              /* linearlayout  */
-  YYSYMBOL_linearlayoutattributes = 70,    /* linearlayoutattributes  */
-  YYSYMBOL_layout_width = 71,              /* layout_width  */
-  YYSYMBOL_layout_height = 72,             /* layout_height  */
-  YYSYMBOL_android_id = 73,                /* android_id  */
-  YYSYMBOL_android_orientation = 74,       /* android_orientation  */
-  YYSYMBOL_text = 75,                      /* text  */
-  YYSYMBOL_checkedButton = 76,             /* checkedButton  */
-  YYSYMBOL_progress = 77,                  /* progress  */
-  YYSYMBOL_padding = 78,                   /* padding  */
-  YYSYMBOL_max = 79,                       /* max  */
-  YYSYMBOL_src = 80,                       /* src  */
-  YYSYMBOL_relativelayout = 81,            /* relativelayout  */
-  YYSYMBOL_relativelayout2 = 82,           /* relativelayout2  */
-  YYSYMBOL_relativelayoutattributes = 83,  /* relativelayoutattributes  */
-  YYSYMBOL_textview = 84,                  /* textview  */
-  YYSYMBOL_textviewattributes = 85,        /* textviewattributes  */
-  YYSYMBOL_imageview = 86,                 /* imageview  */
-  YYSYMBOL_imageviewattributes = 87,       /* imageviewattributes  */
-  YYSYMBOL_radiogroup = 88,                /* radiogroup  */
-  YYSYMBOL_radio_start = 89,               /* radio_start  */
-  YYSYMBOL_radio_end = 90,                 /* radio_end  */
-  YYSYMBOL_radiogroupattributes = 91,      /* radiogroupattributes  */
-  YYSYMBOL_radio_group_element = 92,       /* radio_group_element  */
-  YYSYMBOL_radiobutton = 93,               /* radiobutton  */
-  YYSYMBOL_radiobuttonattributes = 94,     /* radiobuttonattributes  */
-  YYSYMBOL_progressbar = 95,               /* progressbar  */
-  YYSYMBOL_progressbarattributes = 96,     /* progressbarattributes  */
-  YYSYMBOL_comment = 97,                   /* comment  */
-  YYSYMBOL_element = 98                    /* element  */
+  YYSYMBOL_T_ESTADO = 5,                   /* T_ESTADO  */
+  YYSYMBOL_T_INICIAL = 6,                  /* T_INICIAL  */
+  YYSYMBOL_T_FINAL = 7,                    /* T_FINAL  */
+  YYSYMBOL_T_TRANSICIONES = 8,             /* T_TRANSICIONES  */
+  YYSYMBOL_T_END_TAG = 9,                  /* T_END_TAG  */
+  YYSYMBOL_T_INT = 10,                     /* T_INT  */
+  YYSYMBOL_T_END_ALFABETO = 11,            /* T_END_ALFABETO  */
+  YYSYMBOL_T_END_AUTOMATA_AFN = 12,        /* T_END_AUTOMATA_AFN  */
+  YYSYMBOL_T_END_ESTADO = 13,              /* T_END_ESTADO  */
+  YYSYMBOL_T_END_INICIAL = 14,             /* T_END_INICIAL  */
+  YYSYMBOL_T_END_FINAL = 15,               /* T_END_FINAL  */
+  YYSYMBOL_T_END_TRANSICIONES = 16,        /* T_END_TRANSICIONES  */
+  YYSYMBOL_T_LETRA_A = 17,                 /* T_LETRA_A  */
+  YYSYMBOL_T_LETRA_B = 18,                 /* T_LETRA_B  */
+  YYSYMBOL_T_SIMBOLO = 19,                 /* T_SIMBOLO  */
+  YYSYMBOL_T_COMMENT_OPEN = 20,            /* T_COMMENT_OPEN  */
+  YYSYMBOL_T_COMMENT_CLOSE = 21,           /* T_COMMENT_CLOSE  */
+  YYSYMBOL_T_STRING = 22,                  /* T_STRING  */
+  YYSYMBOL_T_STRING_SINGLE_QUOTE = 23,     /* T_STRING_SINGLE_QUOTE  */
+  YYSYMBOL_T_POSITIVE_INTEGER = 24,        /* T_POSITIVE_INTEGER  */
+  YYSYMBOL_T_SLASH_END_TAG = 25,           /* T_SLASH_END_TAG  */
+  YYSYMBOL_T_STRING_DQ_SPACE = 26,         /* T_STRING_DQ_SPACE  */
+  YYSYMBOL_T_DOT = 27,                     /* T_DOT  */
+  YYSYMBOL_28_ = 28,                       /* "."  */
+  YYSYMBOL_T_COMMA = 29,                   /* T_COMMA  */
+  YYSYMBOL_30_ = 30,                       /* ","  */
+  YYSYMBOL_T_ASSIGN = 31,                  /* T_ASSIGN  */
+  YYSYMBOL_32_ = 32,                       /* "="  */
+  YYSYMBOL_T_COLON = 33,                   /* ":"  */
+  YYSYMBOL_T_LBRACK = 34,                  /* T_LBRACK  */
+  YYSYMBOL_35_ = 35,                       /* "["  */
+  YYSYMBOL_T_RBRACK = 36,                  /* T_RBRACK  */
+  YYSYMBOL_37_ = 37,                       /* "]"  */
+  YYSYMBOL_T_SLASH = 38,                   /* "/"  */
+  YYSYMBOL_T_EXCLAMATION = 39,             /* "!"  */
+  YYSYMBOL_T_DASH = 40,                    /* "-"  */
+  YYSYMBOL_T_LBRACES = 41,                 /* "{"  */
+  YYSYMBOL_T_RBRACES = 42,                 /* "}"  */
+  YYSYMBOL_T_AT = 43,                      /* T_AT  */
+  YYSYMBOL_44_ = 44,                       /* "@"  */
+  YYSYMBOL_T_QUESTION_MARK = 45,           /* "?"  */
+  YYSYMBOL_T_UNDERSCORE = 46,              /* "_"  */
+  YYSYMBOL_T_HASH = 47,                    /* "#"  */
+  YYSYMBOL_T_SQUOTES = 48,                 /* "'"  */
+  YYSYMBOL_YYACCEPT = 49,                  /* $accept  */
+  YYSYMBOL_program = 50,                   /* program  */
+  YYSYMBOL_linearlayout = 51,              /* linearlayout  */
+  YYSYMBOL_linearlayoutattributes = 52,    /* linearlayoutattributes  */
+  YYSYMBOL_estados = 53,                   /* estados  */
+  YYSYMBOL_estadosattributes = 54,         /* estadosattributes  */
+  YYSYMBOL_iniciales = 55,                 /* iniciales  */
+  YYSYMBOL_finales = 56,                   /* finales  */
+  YYSYMBOL_finalesattributes = 57,         /* finalesattributes  */
+  YYSYMBOL_transicionales = 58,            /* transicionales  */
+  YYSYMBOL_transicionalesattributes = 59,  /* transicionalesattributes  */
+  YYSYMBOL_comment = 60,                   /* comment  */
+  YYSYMBOL_element = 61                    /* element  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -379,7 +342,7 @@ typedef int yytype_uint16;
 
 
 /* Stored state numbers (used for stacks). */
-typedef yytype_uint8 yy_state_t;
+typedef yytype_int8 yy_state_t;
 
 /* State numbers in computations.  */
 typedef int yy_state_fast_t;
@@ -588,21 +551,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  10
+#define YYFINAL  8
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   173
+#define YYLAST   95
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  67
+#define YYNTOKENS  49
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  32
+#define YYNNTS  13
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  83
+#define YYNRULES  26
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  144
+#define YYNSTATES  81
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   321
+#define YYMAXUTOK   303
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -646,24 +609,16 @@ static const yytype_int8 yytranslate[] =
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
-      65,    66
+      45,    46,    47,    48
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   169,   169,   170,   177,   178,   187,   188,   189,   190,
-     191,   194,   235,   259,   278,   302,   313,   322,   342,   350,
-     367,   382,   393,   403,   404,   405,   406,   407,   408,   411,
-     412,   413,   417,   418,   419,   420,   424,   427,   428,   429,
-     432,   435,   436,   437,   438,   439,   451,   454,   460,   470,
-     471,   472,   473,   474,   475,   476,   477,   478,   479,   480,
-     481,   482,   486,   501,   506,   514,   515,   516,   517,   521,
-     524,   525,   526,   527,   531,   544,   545,   546,   547,   548,
-     549,   550,   551,   552
+       0,   148,   148,   149,   156,   157,   166,   167,   168,   169,
+     170,   241,   244,   245,   246,   249,   252,   255,   256,   257,
+     260,   263,   272,   285,   286,   287,   288
 };
 #endif
 
@@ -679,31 +634,19 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "T_LINEAR_LAYOUT",
-  "T_ALFABETO", "T_RELATIVE_LAYOUT", "T_TEXT_VIEW", "T_IMAGE_VIEW",
-  "T_BUTTON", "T_RADIO_BUTTON", "T_RADIO_GROUP", "T_PROGRESS_BAR",
-  "T_END_TAG", "T_END_ALFABETO", "T_END_LINEAR_LAYOUT",
-  "T_END_RELATIVE_LAYOUT", "T_END_TEXT_VIEW", "T_END_IMAGE_VIEW",
-  "T_END_BUTTON", "T_END_RADIO_BUTTON", "T_END_RADIO_GROUP",
-  "T_END_PROGRESS_BAR", "T_ANDROID_LAYOUT_WIDTH",
-  "T_ANDROID_LAYOUT_HEIGHT", "T_ANDROID_ID", "T_ANDROID_TEXT",
-  "T_ANDROID_ORIENTATION", "T_ANDROID_SRC", "T_ANDROID_PADDING",
-  "T_ANDROID_TEXTCOLOR", "T_ANDROID_CHECKEDBUTTON",
-  "T_RADIO_BUTTON_CHILD_COUNT", "T_ANDROID_PROGRESS", "T_ANDROID_MAX",
-  "T_COMMENT_OPEN", "T_COMMENT_CLOSE", "T_STRING", "T_STRING_SINGLE_QUOTE",
-  "T_POSITIVE_INTEGER", "T_SLASH_END_TAG", "T_STRING_DQ_SPACE",
-  "T_ESTADO_0", "T_ESTADO_1", "T_ESTADO_2", "T_ESTADO_3", "T_DOT", "\".\"",
-  "T_COMMA", "\",\"", "T_ASSIGN", "\"=\"", "\":\"", "T_LBRACK", "\"[\"",
-  "T_RBRACK", "\"]\"", "\"/\"", "\"!\"", "\"-\"", "\"{\"", "\"}\"", "T_AT",
-  "\"@\"", "\"?\"", "\"_\"", "\"#\"", "\"'\"", "$accept", "program",
-  "linearlayout", "linearlayoutattributes", "layout_width",
-  "layout_height", "android_id", "android_orientation", "text",
-  "checkedButton", "progress", "padding", "max", "src", "relativelayout",
-  "relativelayout2", "relativelayoutattributes", "textview",
-  "textviewattributes", "imageview", "imageviewattributes", "radiogroup",
-  "radio_start", "radio_end", "radiogroupattributes",
-  "radio_group_element", "radiobutton", "radiobuttonattributes",
-  "progressbar", "progressbarattributes", "comment", "element", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "T_AUTOMATA_AFN",
+  "T_ALFABETO", "T_ESTADO", "T_INICIAL", "T_FINAL", "T_TRANSICIONES",
+  "T_END_TAG", "T_INT", "T_END_ALFABETO", "T_END_AUTOMATA_AFN",
+  "T_END_ESTADO", "T_END_INICIAL", "T_END_FINAL", "T_END_TRANSICIONES",
+  "T_LETRA_A", "T_LETRA_B", "T_SIMBOLO", "T_COMMENT_OPEN",
+  "T_COMMENT_CLOSE", "T_STRING", "T_STRING_SINGLE_QUOTE",
+  "T_POSITIVE_INTEGER", "T_SLASH_END_TAG", "T_STRING_DQ_SPACE", "T_DOT",
+  "\".\"", "T_COMMA", "\",\"", "T_ASSIGN", "\"=\"", "\":\"", "T_LBRACK",
+  "\"[\"", "T_RBRACK", "\"]\"", "\"/\"", "\"!\"", "\"-\"", "\"{\"",
+  "\"}\"", "T_AT", "\"@\"", "\"?\"", "\"_\"", "\"#\"", "\"'\"", "$accept",
+  "program", "linearlayout", "linearlayoutattributes", "estados",
+  "estadosattributes", "iniciales", "finales", "finalesattributes",
+  "transicionales", "transicionalesattributes", "comment", "element", YY_NULLPTR
 };
 
 static const char *
@@ -713,35 +656,29 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-106)
+#define YYPACT_NINF (-9)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-1)
+#define YYTABLE_NINF (-27)
 
 #define yytable_value_is_error(Yyn) \
   0
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-static const yytype_int16 yypact[] =
+static const yytype_int8 yypact[] =
 {
-       8,    22,   -10,    50,   -10,  -106,  -106,     4,  -106,    42,
-    -106,   143,     4,  -106,   107,   143,   -10,    19,   -10,   -10,
-    -106,   -10,    32,  -106,   143,   143,   143,   143,   143,  -106,
-      56,   100,    27,  -106,  -106,    65,    78,    29,    60,     4,
-      33,     4,    39,   -10,     4,    40,  -106,  -106,  -106,  -106,
-    -106,  -106,    22,    46,   129,   143,  -106,  -106,  -106,  -106,
-     143,   143,    74,    76,    49,  -106,    68,  -106,    -5,    88,
-       4,    86,    79,  -106,  -106,  -106,   143,  -106,  -106,   136,
-      65,   143,    91,    71,    83,   -19,    13,    95,  -106,  -106,
-      34,    88,    89,    70,  -106,   106,  -106,   108,   -10,  -106,
-    -106,    87,    99,  -106,  -106,  -106,    98,    -6,   101,    98,
-    -106,   118,    97,   121,  -106,   119,  -106,   130,  -106,  -106,
-    -106,    -1,  -106,   120,  -106,  -106,   140,  -106,   123,  -106,
-     127,  -106,  -106,     1,    88,  -106,  -106,  -106,  -106,  -106,
-      88,  -106,  -106,  -106
+       2,    11,     0,    21,    18,    18,     3,     5,    -9,    14,
+      20,    20,    -4,    17,    22,     5,     5,     5,    19,    23,
+      15,    24,    24,    16,    25,    27,    26,    -9,    -9,    -9,
+      11,    28,    -9,    32,    32,    12,    -9,    -9,    33,    -9,
+      -9,    34,    35,    -9,    -9,    29,    -9,    -9,     6,    30,
+      -9,    31,    -9,    13,    37,    38,    36,    39,    40,    41,
+      42,    43,    44,    45,    46,    47,    48,    49,    50,    51,
+      52,    53,    54,    55,    57,    58,    56,    59,    60,    63,
+      -9
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -749,135 +686,91 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,    35,     0,     0,     2,    11,     0,     3,     0,
-       1,    83,     0,    12,    32,    83,    35,     0,     0,     0,
-      47,     0,     0,    82,    83,    83,    80,    83,    83,    81,
-       0,     6,     0,    33,    34,    29,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,    18,    78,    75,    79,
-      76,    77,     4,     0,    83,    83,    10,    14,    13,    30,
-      83,     0,     0,     0,    37,    36,    41,    40,    65,    63,
-       0,     0,    70,    69,     5,    15,    83,     7,     8,     0,
-       0,    83,     0,    39,     0,    45,     0,     0,    68,    64,
-      49,     0,    71,     0,    23,     0,    25,     0,     0,    38,
-      22,     0,    42,    44,    16,    17,    66,    50,    51,    53,
-      48,     0,    72,     0,     9,    24,    26,     0,    20,    43,
-      67,    55,    57,     0,    52,    54,     0,    21,     0,    73,
-       0,    28,    27,    56,     0,    59,    62,    46,    19,    74,
-       0,    60,    58,    61
+       0,     0,     0,     0,     0,     0,     0,    26,     1,     0,
+       0,     0,     6,     0,     0,    26,    26,    26,     0,     0,
+       0,     0,     0,     7,     0,    17,     0,    23,    24,    25,
+       4,    12,    11,     0,     0,     0,     9,    15,    18,    16,
+       5,    14,     0,     3,     2,     0,    19,    13,     0,     0,
+      22,     0,    20,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      21
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-    -106,  -106,   111,  -106,    -4,    -8,   -30,   110,   -29,   -84,
-    -106,    63,  -106,  -106,   -28,  -106,     5,  -106,  -106,  -106,
-    -106,  -106,  -106,  -106,  -106,  -105,   -67,  -106,    85,    72,
-    -106,    20
+      -9,    -9,    -1,    -9,     9,    -9,     7,    -2,    -9,    61,
+      -9,    -9,    -8
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_uint8 yydefgoto[] =
+static const yytype_int8 yydefgoto[] =
 {
-       0,     3,     5,    11,     7,    14,    33,    55,    88,    23,
-     129,   103,   112,    85,    24,     8,     9,    25,    38,    26,
-      40,    27,    43,   126,    71,   124,    28,    42,    29,    45,
-     114,    30
+       0,     3,     4,     7,    15,    20,    16,    17,    26,    43,
+      49,    36,    18
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
    positive, shift that token.  If negative, reduce the rule whose
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_uint8 yytable[] =
+static const yytype_int8 yytable[] =
 {
-      12,    54,    89,    19,    31,    32,   108,    59,    19,   101,
-      19,     1,     6,     2,    39,    41,   134,    44,    32,    32,
-      86,    36,   120,   109,   110,   125,     4,    13,   140,    22,
-     123,    66,   123,    68,    34,    35,    72,   133,    87,    70,
-     122,    62,    92,    19,    47,    48,    49,    50,    51,   104,
-      10,    56,    96,   105,   135,   102,    63,    15,   106,    86,
-      37,   107,    90,    57,    22,    58,   141,   142,    46,    52,
-      16,    64,    67,   143,    77,    78,    65,   121,    69,    73,
-      79,    80,    75,    16,    17,    18,    81,    19,    20,    21,
-      60,    82,    83,    61,    44,    84,    93,    19,    91,    95,
-       6,    97,    21,    32,   113,    16,    17,    18,    22,    19,
-      20,    21,    16,    17,    18,    99,    19,    20,    21,   100,
-      86,   115,   111,   116,    32,   118,    53,   101,    22,   128,
-      22,    32,   123,   131,    16,    17,    18,    22,    19,    20,
-      21,    16,    17,    18,   132,    19,    20,    21,    16,    17,
-      18,    94,    19,    20,    21,    53,   127,   130,   136,    22,
-     137,   138,   139,    74,    76,   119,    22,    98,     0,     0,
-     117,     0,     0,    22
+       5,     9,    13,    14,    23,     1,     2,    27,    28,    29,
+       9,    13,    14,    10,    11,     2,   -26,    21,    22,    33,
+      34,     8,     6,     9,    19,    12,    13,    24,    32,    40,
+      30,    14,    25,    31,    45,    51,    35,    38,    41,    37,
+      42,    39,    54,    46,    47,    48,    52,    55,    56,     0,
+      50,    60,    61,    53,     0,     0,    65,    66,    58,     0,
+       0,    70,    71,     0,     0,    57,    63,    75,    76,    59,
+       0,    68,    62,    80,    64,     0,    73,    67,     0,    69,
+       0,    78,    72,     0,    74,    77,     0,     0,     0,    79,
+       0,     0,     0,     0,     0,    44
 };
 
-static const yytype_int16 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       4,    31,    69,     9,    12,    24,    90,    35,     9,    28,
-       9,     3,    22,     5,    18,    19,   121,    21,    24,    24,
-      25,    16,   106,    90,    91,   109,     4,    23,   133,    30,
-      31,    39,    31,    41,    14,    15,    44,   121,    68,    43,
-     107,    36,    72,     9,    24,    25,    26,    27,    28,    36,
-       0,    31,    80,    40,   121,    85,    36,    15,    87,    25,
-      41,    90,    70,    36,    30,    38,   133,   134,    36,    13,
-       5,    42,    39,   140,    54,    55,    16,   107,    39,    39,
-      60,    61,    36,     5,     6,     7,    12,     9,    10,    11,
-      12,    15,    43,    15,    98,    27,    76,     9,    12,    79,
-      22,    81,    11,    24,    34,     5,     6,     7,    30,     9,
-      10,    11,     5,     6,     7,    44,     9,    10,    11,    36,
-      25,    15,    33,    15,    24,    38,    26,    28,    30,    32,
-      30,    24,    31,    14,     5,     6,     7,    30,     9,    10,
-      11,     5,     6,     7,    14,     9,    10,    11,     5,     6,
-       7,    15,     9,    10,    11,    26,    38,    36,    38,    30,
-      20,    38,    35,    52,    54,   102,    30,    82,    -1,    -1,
-      98,    -1,    -1,    30
+       1,     5,     6,     7,    12,     3,     4,    15,    16,    17,
+       5,     6,     7,     4,     5,     4,    20,    10,    11,    21,
+      22,     0,    22,     5,    10,    22,     6,    10,    13,    30,
+      11,     7,    10,    10,    22,    29,    20,    10,    10,    14,
+       8,    15,    29,    10,    10,    10,    16,    10,    10,    -1,
+      21,    10,    10,    22,    -1,    -1,    10,    10,    19,    -1,
+      -1,    10,    10,    -1,    -1,    29,    22,    10,    10,    29,
+      -1,    22,    29,    10,    29,    -1,    22,    29,    -1,    29,
+      -1,    22,    29,    -1,    29,    29,    -1,    -1,    -1,    29,
+      -1,    -1,    -1,    -1,    -1,    34
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     5,    68,     4,    69,    22,    71,    82,    83,
-       0,    70,    71,    23,    72,    15,     5,     6,     7,     9,
-      10,    11,    30,    76,    81,    84,    86,    88,    93,    95,
-      98,    72,    24,    73,    98,    98,    83,    41,    85,    71,
-      87,    71,    94,    89,    71,    96,    36,    98,    98,    98,
-      98,    98,    13,    26,    73,    74,    98,    36,    38,    81,
-      12,    15,    83,    98,    42,    16,    72,    39,    72,    39,
-      71,    91,    72,    39,    69,    36,    74,    98,    98,    98,
-      98,    12,    15,    43,    27,    80,    25,    73,    75,    93,
-      72,    12,    73,    98,    15,    98,    81,    98,    95,    44,
-      36,    28,    73,    78,    36,    40,    75,    75,    76,    93,
-      93,    33,    79,    34,    97,    15,    15,    96,    38,    78,
-      76,    73,    93,    31,    92,    76,    90,    38,    32,    77,
-      36,    14,    14,    76,    92,    93,    38,    20,    38,    35,
-      92,    93,    93,    93
+       0,     3,     4,    50,    51,    51,    22,    52,     0,     5,
+      53,    53,    22,     6,     7,    53,    55,    56,    61,    10,
+      54,    55,    55,    61,    10,    10,    57,    61,    61,    61,
+      11,    10,    13,    56,    56,    20,    60,    14,    10,    15,
+      51,    10,     8,    58,    58,    22,    10,    10,    10,    59,
+      21,    29,    16,    22,    29,    10,    10,    29,    19,    29,
+      10,    10,    29,    22,    29,    10,    10,    29,    22,    29,
+      10,    10,    29,    22,    29,    10,    10,    29,    22,    29,
+      10
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    67,    68,    68,    69,    69,    70,    70,    70,    70,
-      70,    71,    72,    73,    73,    74,    75,    75,    76,    77,
-      78,    79,    80,    81,    81,    81,    81,    81,    81,    82,
-      82,    82,    83,    83,    83,    83,    84,    85,    85,    85,
-      86,    87,    87,    87,    87,    87,    88,    89,    90,    91,
-      91,    91,    91,    91,    91,    91,    91,    91,    91,    91,
-      91,    91,    92,    93,    93,    94,    94,    94,    94,    95,
-      96,    96,    96,    96,    97,    98,    98,    98,    98,    98,
-      98,    98,    98,    98
+       0,    49,    50,    50,    51,    51,    52,    52,    52,    52,
+      52,    53,    54,    54,    54,    55,    56,    57,    57,    57,
+      58,    59,    60,    61,    61,    61,    61
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     2,     2,     4,     5,     2,     4,     4,     6,
-       3,     1,     1,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     5,     6,     5,     6,     7,     7,     3,
-       4,     3,     2,     3,     3,     0,     3,     2,     4,     3,
-       3,     2,     4,     5,     4,     3,     7,     0,     0,     2,
-       3,     3,     4,     3,     4,     4,     5,     4,     6,     5,
-       6,     7,     2,     3,     4,     2,     4,     5,     3,     3,
-       2,     3,     4,     5,     3,     2,     2,     2,     2,     2,
-       1,     1,     1,     0
+       0,     2,     6,     5,     4,     5,     2,     3,     3,     4,
+       3,     3,     2,     4,     3,     3,     3,     1,     2,     3,
+       3,    30,     3,     2,     2,     2,     0
 };
 
 
@@ -1610,210 +1503,8 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 13: /* android_id: T_ANDROID_ID T_POSITIVE_INTEGER  */
-#line 260 "grammar.y"
-                {
-                    flag = 0;
-                    if (strcmp((yyvsp[-1].strval), "android:id=") == 0 || flag == 1) {
-                        flag = 1;
-                        pos_number = dq_string_to_int((yyvsp[0].strval));
-                        printf("%s = %d\n", (yyvsp[-1].strval), pos_number);
-                        char pos_number_str[20];  // Buffer to hold the string representation of pos_number
-                        snprintf(pos_number_str, sizeof(pos_number_str), "%d", pos_number);
 
-                        if (isIdUsed(pos_number_str)) {
-                            yyerror("The android:id value is not unique.");
-                        } else {
-                            addUsedId(pos_number_str);
-                        }
-                    } else {
-                        yyerror("Expected android:id=");
-                    }
-                }
-#line 1634 "grammar.tab.c"
-    break;
-
-  case 14: /* android_id: T_ANDROID_ID T_STRING  */
-#line 279 "grammar.y"
-                {
-                    flag = 0;
-                    if (strcmp((yyvsp[-1].strval), "android:id=") == 0 || flag == 1) {
-                        flag = 1;
-                        printf("%s = %s\n", (yyvsp[-1].strval), (yyvsp[0].strval));
-
-                        if(flag_radio_button==1){
-                            checkRadioBId((yyvsp[0].strval));
-                        }
-
-                        if(isIdUsed((yyvsp[0].strval))){
-                            yyerror("The android:id value is not unique.");
-                        }else{
-                            addUsedId((yyvsp[0].strval));
-                        }
-                    } else {
-                        yyerror("Expected android:id=");
-                    }
-                }
-#line 1658 "grammar.tab.c"
-    break;
-
-  case 15: /* android_orientation: T_ANDROID_ORIENTATION T_STRING  */
-#line 303 "grammar.y"
-                                 {  flag=0;
-                                 if(strcmp((yyvsp[-1].strval), "android:orientation=") == 0 || flag==1){
-                                        flag=1;
-                                    if(strcmp((yyvsp[0].strval), "\"horizontal\"") == 0 || strcmp((yyvsp[0].strval), "\"vertical\"") == 0)
-                                    printf("%s = %s\n", (yyvsp[-1].strval), (yyvsp[0].strval));
-                                    }
-                                 else yyerror("Expected android:orientation="); 
-                                 }
-#line 1671 "grammar.tab.c"
-    break;
-
-  case 16: /* text: T_ANDROID_TEXT T_STRING  */
-#line 314 "grammar.y"
-                                 {  
-                                    flag=0;
-                                    if(strcmp((yyvsp[-1].strval), "android:text=") == 0 || flag==1){
-                                        flag=1;
-                                    printf("%s = %s\n", (yyvsp[-1].strval), (yyvsp[0].strval));}
-                                 else yyerror("Expected android:text="); 
-                                }
-#line 1683 "grammar.tab.c"
-    break;
-
-  case 17: /* text: T_ANDROID_TEXT T_STRING_DQ_SPACE  */
-#line 323 "grammar.y"
-                                {flag=0;
-                                    if(strcmp((yyvsp[-1].strval), "android:text=") == 0 || flag==1){
-                                        flag=1;
-                                    printf("%s = %s\n", (yyvsp[-1].strval), (yyvsp[0].strval));}
-                                 else yyerror("Expected android:text="); 
-                                }
-#line 1694 "grammar.tab.c"
-    break;
-
-  case 18: /* checkedButton: T_ANDROID_CHECKEDBUTTON T_STRING  */
-#line 343 "grammar.y"
-                    {
-                    save_checked_button_id((yyvsp[0].strval));
-                    printf("%s = %s\n", (yyvsp[-1].strval), (yyvsp[0].strval));                    
-                    }
-#line 1703 "grammar.tab.c"
-    break;
-
-  case 19: /* progress: T_ANDROID_PROGRESS T_POSITIVE_INTEGER  */
-#line 351 "grammar.y"
-                                        {
-                                            if (strcmp((yyvsp[-1].strval), "android:progress=") == 0 || flag == 1) {
-                                                flag = 1;
-                                                int progress = dq_string_to_int((yyvsp[0].strval));
-                                                if (progress >= 0 && progress <= max_value) {
-                                                    printf("%s = %d\n", (yyvsp[-1].strval), progress);
-                                                } else {
-                                                    yyerror("Invalid android:progress value");
-                                                }
-                                            } else {
-                                                yyerror("Expected android:progress=");
-                                            }
-                                        }
-#line 1721 "grammar.tab.c"
-    break;
-
-  case 20: /* padding: T_ANDROID_PADDING T_POSITIVE_INTEGER  */
-#line 368 "grammar.y"
-                            { flag=0;
-                            if(strcmp((yyvsp[-1].strval), "android:padding=") == 0 || flag ==1) {
-                                flag=1;
-                                pos_number = atoi((yyvsp[0].strval));
-                                    if (pos_number < 0) {
-                                      yyerror("Invalid progress value. It should be a positive integer.");
-                                    }
-                                    printf("%s = ''%d''\n", (yyvsp[-1].strval), pos_number);}
-                             else {
-                                yyerror("Expected android:padding=");
-                                  }
-                            }
-#line 1738 "grammar.tab.c"
-    break;
-
-  case 21: /* max: T_ANDROID_MAX T_POSITIVE_INTEGER  */
-#line 383 "grammar.y"
-                            {
-                                if (strcmp((yyvsp[-1].strval), "android:max=") == 0) {
-                                    max_value = dq_string_to_int((yyvsp[0].strval));
-                                    printf("%s = %d\n", (yyvsp[-1].strval), max_value);
-                                } else {
-                                    yyerror("Expected android:max=");
-                                }
-                            }
-#line 1751 "grammar.tab.c"
-    break;
-
-  case 22: /* src: T_ANDROID_SRC T_STRING  */
-#line 394 "grammar.y"
-                                {   flag=0;
-                                    if(strcmp((yyvsp[-1].strval), "android:src=") == 0|| flag==1){
-                                        flag=1;
-                                    printf("%s = %s\n", (yyvsp[-1].strval), (yyvsp[0].strval));}
-                                 else yyerror("Expected android:src="); 
-                                }
-#line 1762 "grammar.tab.c"
-    break;
-
-  case 47: /* radio_start: %empty  */
-#line 455 "grammar.y"
-                        {
-                        flag_radio_button =1;
-                        }
-#line 1770 "grammar.tab.c"
-    break;
-
-  case 48: /* radio_end: %empty  */
-#line 461 "grammar.y"
-                        {
-                            flag_radio_button = 0;
-                            check_values();
-                            check_radio_group_child_count(child_count, child_count_rge);
-                        }
-#line 1780 "grammar.tab.c"
-    break;
-
-  case 62: /* radio_group_element: T_RADIO_BUTTON_CHILD_COUNT T_POSITIVE_INTEGER  */
-#line 487 "grammar.y"
-                            {
-                                const char* str = (yyvsp[0].strval);  // Get the string value
-                                int len = strlen(str);
-                                char* int_str = malloc(len - 1);  // Allocate memory for the integer string
-                                strncpy(int_str, str + 1, len - 2);  // Copy the inner part of the string without the quotes
-                                int_str[len - 2] = '\0';  // Add null terminator
-                                child_count_rge = atoi(int_str);  // Convert the string to an integer
-                                free(int_str);  // Free the allocated memory
-                                printf("Number of children for <RadioGroup>: %d\n", child_count_rge);
-                            }
-#line 1795 "grammar.tab.c"
-    break;
-
-  case 63: /* radiobutton: T_RADIO_BUTTON radiobuttonattributes T_SLASH_END_TAG  */
-#line 502 "grammar.y"
-              {
-                // Increment child count when a <RadioButton> is encountered
-                increment_child_count();
-              }
-#line 1804 "grammar.tab.c"
-    break;
-
-  case 64: /* radiobutton: T_RADIO_BUTTON radiobuttonattributes T_SLASH_END_TAG radiobutton  */
-#line 507 "grammar.y"
-              {
-                // Increment child count when a <RadioButton> is encountered
-                increment_child_count();
-              }
-#line 1813 "grammar.tab.c"
-    break;
-
-
-#line 1817 "grammar.tab.c"
+#line 1508 "grammar.tab.c"
 
       default: break;
     }
@@ -2037,7 +1728,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 558 "grammar.y"
+#line 294 "grammar.y"
 
 
 int main(int argc, char *argv[]){
@@ -2077,7 +1768,7 @@ void yyerror(const char *message)
     error_count++;
     
     if(flag_err_type==0){
-        printf("-> ERROR at line %d caused by %s : %s\n", lineno, yytext, message);
+        printf("-> ERROR at line %d caused by %s : %s\n", lineno,  message);
     }else if(flag_err_type==1){
         *str_buf_ptr = '\0'; 
         printf("-> ERROR at line %d near \"%s\": %s\n", lineno, str_buf, message);
@@ -2135,16 +1826,7 @@ void increment_child_count() {
     child_count++;
 }
 
-void check_radio_group_child_count(int expected_count, int cumulative_count) {
-    if (cumulative_count != expected_count) {
-        char error_message[100];
-        printf("cumulative_count: %d\n", cumulative_count);
-        sprintf(error_message, "Invalid number of children. Expected %d children for <RadioGroup>.", expected_count);
-        yyerror(error_message);
-    } else {
-        printf("The number of children is correct!\n\n");
-    }
-}
+
 
 
 ///////////////////////////////// ERWTHMA 2 CHECKED_BUTTON //////////////////////////////////////////////////////////////////////////////////////////////
