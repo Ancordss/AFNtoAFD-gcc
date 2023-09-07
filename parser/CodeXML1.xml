@@ -1,0 +1,39 @@
+<LinearLayout
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:orientation="vertical">
+
+<TextView
+    android:layout_width="20"
+    android:layout_height="20"
+    android:id="TV1"
+    android:text="Dummy text"/>
+
+<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+<RadioButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="RB2"
+    android:text="Option 2"/>
+
+</RadioGroup>
+
+<!--This is a comment, ignore me! -->
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="immage_name"
+       android:padding="50"/>
+
+       </RelativeLayout>
+       
+    </LinearLayout>
