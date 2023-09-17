@@ -609,7 +609,7 @@ static const yytype_int16 yyrline[] =
 {
        0,   132,   132,   133,   140,   140,   145,   145,   155,   164,
      167,   171,   177,   185,   191,   195,   198,   205,   210,   229,
-     238,   251,   264,   209,   306,   307,   308,   309
+     238,   255,   271,   209,   319,   320,   321,   322
 };
 #endif
 
@@ -1612,6 +1612,9 @@ yyreduce:
   case 20: /* $@5: %empty  */
 #line 238 "grammar.y"
                          {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi((yyvsp[-4].strval)), (yyvsp[-2].strval), atoi((yyvsp[0].strval)));
+
                              int error_line = lineno;
 
                              if (strcmp((yyvsp[-2].strval), t_alfabeto0) != 0 && strcmp((yyvsp[-2].strval), t_alfabeto1) != 0)
@@ -1620,14 +1623,18 @@ yyreduce:
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, (yyvsp[-3].strval));
                                     yyerror(error_message);
                                 }
-                                tokens_transicionales[num_tokens_transicionales++] = atoi((yyvsp[-15].strval));
+
+                            tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
-#line 1626 "grammar.tab.c"
+#line 1630 "grammar.tab.c"
     break;
 
   case 21: /* $@6: %empty  */
-#line 251 "grammar.y"
+#line 255 "grammar.y"
                          {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi((yyvsp[-4].strval)), (yyvsp[-2].strval), atoi((yyvsp[0].strval)));
+
                              int error_line = lineno;
 
                              if (strcmp((yyvsp[-2].strval), t_alfabeto0) != 0 && strcmp((yyvsp[-2].strval), t_alfabeto1) != 0)
@@ -1636,14 +1643,17 @@ yyreduce:
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, (yyvsp[-3].strval));
                                     yyerror(error_message);
                                 }
-                                tokens_transicionales[num_tokens_transicionales++] = atoi((yyvsp[-20].strval));
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
-#line 1642 "grammar.tab.c"
+#line 1649 "grammar.tab.c"
     break;
 
   case 22: /* $@7: %empty  */
-#line 264 "grammar.y"
+#line 271 "grammar.y"
                          {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi((yyvsp[-4].strval)), (yyvsp[-2].strval), atoi((yyvsp[0].strval)));
+
                              int error_line = lineno;
 
                              if (strcmp((yyvsp[-2].strval), t_alfabeto0) != 0 && strcmp((yyvsp[-2].strval), t_alfabeto1) != 0)
@@ -1652,14 +1662,17 @@ yyreduce:
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, (yyvsp[-3].strval));
                                     yyerror(error_message);
                                 }
-                                tokens_transicionales[num_tokens_transicionales++] = atoi((yyvsp[-25].strval));
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
-#line 1658 "grammar.tab.c"
+#line 1668 "grammar.tab.c"
     break;
 
   case 23: /* transicionalesattributes: T_INT T_COMMA T_STRING T_COMMA T_INT $@3 T_INT T_COMMA T_SIMBOLO T_COMMA T_INT $@4 T_INT T_COMMA T_STRING T_COMMA T_INT $@5 T_INT T_COMMA T_STRING T_COMMA T_INT $@6 T_INT T_COMMA T_STRING T_COMMA T_INT $@7 T_INT T_COMMA T_STRING T_COMMA T_INT  */
-#line 277 "grammar.y"
+#line 287 "grammar.y"
                          {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi((yyvsp[-4].strval)), (yyvsp[-2].strval), atoi((yyvsp[0].strval)));
+
                              int error_line = lineno;
 
                              if (strcmp((yyvsp[-2].strval), t_alfabeto0) != 0 && strcmp((yyvsp[-2].strval), t_alfabeto1) != 0)
@@ -1668,13 +1681,13 @@ yyreduce:
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, (yyvsp[-3].strval));
                                     yyerror(error_message);
                                 }
-                                tokens_transicionales[num_tokens_transicionales++] = atoi((yyvsp[-30].strval));
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
-#line 1674 "grammar.tab.c"
+#line 1687 "grammar.tab.c"
     break;
 
 
-#line 1678 "grammar.tab.c"
+#line 1691 "grammar.tab.c"
 
       default: break;
     }
@@ -1898,7 +1911,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 315 "grammar.y"
+#line 328 "grammar.y"
 
 
 int main(int argc, char *argv[]){

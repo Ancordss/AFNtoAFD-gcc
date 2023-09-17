@@ -236,6 +236,9 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($13), $15, atoi($17));
+
                              int error_line = lineno;
 
                              if (strcmp($15, t_alfabeto0) != 0 && strcmp($15, t_alfabeto1) != 0)
@@ -244,11 +247,15 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $14);
                                     yyerror(error_message);
                                 }
-                                tokens_transicionales[num_tokens_transicionales++] = atoi($2);
+
+                            tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
                           
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($19), $21, atoi($23));
+
                              int error_line = lineno;
 
                              if (strcmp($21, t_alfabeto0) != 0 && strcmp($21, t_alfabeto1) != 0)
@@ -257,11 +264,14 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $20);
                                     yyerror(error_message);
                                 }
-                                tokens_transicionales[num_tokens_transicionales++] = atoi($3);
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
                           
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($25), $27, atoi($29));
+
                              int error_line = lineno;
 
                              if (strcmp($27, t_alfabeto0) != 0 && strcmp($27, t_alfabeto1) != 0)
@@ -270,11 +280,14 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $26);
                                     yyerror(error_message);
                                 }
-                                tokens_transicionales[num_tokens_transicionales++] = atoi($4);
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
                         
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($31), $33, atoi($35));
+
                              int error_line = lineno;
 
                              if (strcmp($33, t_alfabeto0) != 0 && strcmp($33, t_alfabeto1) != 0)
@@ -283,7 +296,7 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
                                     yyerror(error_message);
                                 }
-                                tokens_transicionales[num_tokens_transicionales++] = atoi($5);
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
                          ;
                           
