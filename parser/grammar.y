@@ -5,6 +5,17 @@
 #include "token.h"
 #include <stdbool.h>
 
+int tokens_estadosattributes[100];// Tamaño suficiente para tokens de estados
+int num_tokens_estadosattributes = 0;
+int tokens_iniciales[100]; // Tamaño suficiente para tokens de iniciales
+int num_tokens_iniciales = 0;
+int tokens_finalesattributes[100]; // Tamaño suficiente para tokens de finalesattributes
+int num_tokens_finalesattributes = 0;
+int tokens_transicionales[100]; // Tamaño suficiente para tokens de estados transicionales
+int num_tokens_transicionales = 0; 
+char* tokens_linearlayout[100]; // Tamaño suficiente para tokens de linearlayout
+int num_tokens_linearlayout = 0; 
+
 
 /** Extern from Flex **/
 extern int lineno, 
@@ -119,16 +130,26 @@ void yyerror(const char *message);
 /*Grammar Rules*/
 
 program :                 T_AUTOMATA_AFN linearlayout estados iniciales finales transicionales T_END_AUTOMATA_AFN
-                        | linearlayout estados iniciales finales transicionales //gia na min psaxnei duo fores to <Relative paei sto relativelayout2 poy exei kateuthian ta attributes
+                        | linearlayout estados iniciales finales transicionales
                         ;
 
 // linearlayout:              T_LINEAR_LAYOUT linearlayoutattributes element T_END_LINEAR_LAYOUT
 //                         |  T_LINEAR_LAYOUT linearlayoutattributes element  T_END_LINEAR_LAYOUT linearlayout
 //                         ;
 
-linearlayout:              T_ALFABETO linearlayoutattributes element T_END_ALFABETO
-                        |  T_ALFABETO linearlayoutattributes element  T_END_ALFABETO linearlayout
-                        ;
+linearlayout: T_ALFABETO {
+                    // En lugar de almacenar el valor de T_ALFABETO, almacena "a" y "b" en el array
+                    tokens_linearlayout[num_tokens_linearlayout++] = strdup("a");
+                    tokens_linearlayout[num_tokens_linearlayout++] = strdup("b");
+                    } linearlayoutattributes element T_END_ALFABETO
+                    | T_ALFABETO {
+                     // En lugar de almacenar el valor de T_ALFABETO, almacena "a" y "b" en el array
+                    tokens_linearlayout[num_tokens_linearlayout++] = strdup("a");
+                    tokens_linearlayout[num_tokens_linearlayout++] = strdup("b");
+                    } linearlayoutattributes element T_END_ALFABETO linearlayout
+                    ;
+
+
                               
                         
 linearlayoutattributes: T_STRING T_STRING {
@@ -143,39 +164,67 @@ simbolos: T_SIMBOLO
 estados:                 T_ESTADO  estadosattributes T_END_ESTADO  
                         ;
                    
-estadosattributes:      T_INT T_INT
-                        |T_INT T_INT T_INT T_INT
-                        |T_INT T_INT T_INT  
-                        ;
+estadosattributes: T_INT T_INT {
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($2);
+        }
+        | T_INT T_INT T_INT T_INT {
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($3);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($4);
+        }
+        | T_INT T_INT T_INT {
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = atoi($3);
+        }
+;
 
-iniciales:               T_INICIAL  T_INT T_END_INICIAL 
-                        ; 
+
+iniciales:          T_INICIAL T_INT T_END_INICIAL {
+                    tokens_iniciales[num_tokens_iniciales++] = atoi($2);
+                }
+                ;
+
 
 finales:                 T_FINAL finalesattributes T_END_FINAL
                         ;
 
-finalesattributes:       T_INT
-                        |T_INT T_INT                        
-                        ;
+
+finalesattributes: T_INT {
+                    tokens_finalesattributes[num_tokens_finalesattributes++] = atoi($1);
+                }
+                | T_INT T_INT {
+                    tokens_finalesattributes[num_tokens_finalesattributes++] = atoi($1);
+                    tokens_finalesattributes[num_tokens_finalesattributes++] = atoi($2);
+                }
+                ;
+
 
 transicionales:         T_TRANSICIONES transicionalesattributes T_END_TRANSICIONES
                         ;
 
+
 transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                          {
+                            // char variable
+                            // variable=$1+","$3+","$5
                              int error_line = lineno;
 
                              if (strcmp($3, t_alfabeto0) != 0 && strcmp($3, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $3);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $3);
                                     yyerror(error_message);
                                 }
-
+                                // Almacena el token T_INT en la matriz de tokens transicionales
+                                tokens_transicionales[num_tokens_transicionales++] = atoi($1);
                          }
                           
                          T_INT T_COMMA T_SIMBOLO T_COMMA  T_INT
-                          
+
+
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          {
                              int error_line = lineno;
@@ -183,10 +232,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                              if (strcmp($14, t_alfabeto0) != 0 && strcmp($14, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $14);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $14);
                                     yyerror(error_message);
                                 }
-
+                                tokens_transicionales[num_tokens_transicionales++] = atoi($2);
                          }
                           
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
@@ -196,10 +245,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                              if (strcmp($20, t_alfabeto0) != 0 && strcmp($20, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $20);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $20);
                                     yyerror(error_message);
                                 }
-
+                                tokens_transicionales[num_tokens_transicionales++] = atoi($3);
                          }
                           
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
@@ -209,10 +258,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                              if (strcmp($26, t_alfabeto0) != 0 && strcmp($26, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $26);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $26);
                                     yyerror(error_message);
                                 }
-
+                                tokens_transicionales[num_tokens_transicionales++] = atoi($4);
                          }
                         
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
@@ -222,10 +271,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                              if (strcmp($32, t_alfabeto0) != 0 && strcmp($32, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One T_STRING at line %d does not match values %s or %s that were entered in T_ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
                                     yyerror(error_message);
                                 }
-
+                                tokens_transicionales[num_tokens_transicionales++] = atoi($5);
                          }
                          ;
                           
@@ -261,7 +310,7 @@ int main(int argc, char *argv[]){
 
     
 
-
+    
     if(argc > 1){
         yyin = fopen(argv[1], "r");
         if (yyin == NULL){
@@ -280,6 +329,48 @@ int main(int argc, char *argv[]){
         
    else{
         printf("Syntax Analysis completed successfully.\n");
+        printf("TOKENS ENCONTRADOS:\n");
+int max_tokens = num_tokens_estadosattributes;
+if (num_tokens_iniciales > max_tokens) {
+    max_tokens = num_tokens_iniciales;
+}
+if (num_tokens_finalesattributes > max_tokens) {
+    max_tokens = num_tokens_finalesattributes;
+}
+if (num_tokens_transicionales > max_tokens) {
+    max_tokens = num_tokens_transicionales;
+}
+
+// Imprimir tokens de ALFABETO
+for (int i = 0; i < num_tokens_linearlayout; i++) {
+    printf("TOKEN FOUND in ALFABETO: %s\n", tokens_linearlayout[i]);
+}
+
+// Imprimir tokens de ESTADOS
+for (int i = 0; i < num_tokens_estadosattributes; i++) {
+    printf("TOKEN FOUND in ESTADOS: %d\n", tokens_estadosattributes[i]);
+}
+
+// Imprimir tokens de INICIAL
+for (int i = 0; i < num_tokens_iniciales; i++) {
+    printf("TOKEN FOUND in INICIAL: %d\n", tokens_iniciales[i]);
+}
+
+// Imprimir tokens de FINAL
+for (int i = 0; i < num_tokens_finalesattributes; i++) {
+    printf("TOKEN FOUND in FINAL: %d\n", tokens_finalesattributes[i]);
+}
+
+// Imprimir tokens de TRANSICIONALES
+for (int i = 0; i < num_tokens_transicionales; i++) {
+    int index = i * 3;
+    int estado_origen = tokens_transicionales[index];
+    char simbolo = (char)tokens_transicionales[index + 1];
+    int estado_destino = tokens_transicionales[index + 2];
+    printf("TOKEN FOUND in TRANSICIONALES: %d,%c,%d\n", estado_origen, simbolo, estado_destino);
+}
+
+        
       }
 
     return 0;
