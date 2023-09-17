@@ -19,6 +19,7 @@ int line_init=-1;
 
 char str_buf[256];
 char* str_buf_ptr;
+FILE *vitacora_tokens_file = NULL;
 
 
 
@@ -51,52 +52,52 @@ WHITESPACE          [ \t]
 
 %%
 
-"<AUTOMATA_AFN>"                                { token_print(T_AUTOMATA_AFN); yylval.strval=strdup(yytext); return T_AUTOMATA_AFN;}
-"<ALFABETO>"                                    { token_print(T_ALFABETO); yylval.strval=strdup(yytext); return T_ALFABETO;}
-"<ESTADO>"                                      { token_print(T_ESTADO); yylval.strval=strdup(yytext); return T_ESTADO;}
-"<INICIAL>"                                     { token_print(T_INICIAL); yylval.strval=strdup(yytext); return T_INICIAL;}
-"<FINAL>"                                       { token_print(T_FINAL); yylval.strval=strdup(yytext); return T_FINAL;}
-"<TRANSICIONES>"                                { token_print(T_TRANSICIONES); yylval.strval=strdup(yytext); return T_TRANSICIONES;}
-">"                                             { token_print( T_END_TAG);   yylval.strval=strdup(yytext); return T_END_TAG;}
-"/>"                                            { token_print( T_SLASH_END_TAG);   yylval.strval=strdup(yytext); return T_SLASH_END_TAG;}
+"<AUTOMATA_AFN>"                                { token_print(T_AUTOMATA_AFN); yylval.strval=strdup(yytext); close_vitacora_file(); return T_AUTOMATA_AFN;}
+"<ALFABETO>"                                    { token_print(T_ALFABETO); yylval.strval=strdup(yytext); close_vitacora_file(); return T_ALFABETO;}
+"<ESTADO>"                                      { token_print(T_ESTADO); yylval.strval=strdup(yytext); close_vitacora_file(); return T_ESTADO;}
+"<INICIAL>"                                     { token_print(T_INICIAL); yylval.strval=strdup(yytext); close_vitacora_file(); return T_INICIAL;}
+"<FINAL>"                                       { token_print(T_FINAL); yylval.strval=strdup(yytext); close_vitacora_file(); return T_FINAL;}
+"<TRANSICIONES>"                                { token_print(T_TRANSICIONES); yylval.strval=strdup(yytext); close_vitacora_file(); return T_TRANSICIONES;}
+">"                                             { token_print( T_END_TAG);   yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_TAG;}
+"/>"                                            { token_print( T_SLASH_END_TAG);   yylval.strval=strdup(yytext); close_vitacora_file(); return T_SLASH_END_TAG;}
 
 
-"</AUTOMATA_AFN>"                               { token_print(T_END_AUTOMATA_AFN); yylval.strval=strdup(yytext); return T_END_AUTOMATA_AFN;}
-"</ALFABETO>"                                   { token_print(T_END_ALFABETO); yylval.strval=strdup(yytext); return T_END_ALFABETO;}
-"</ESTADO>"                                     { token_print(T_END_ESTADO); yylval.strval=strdup(yytext); return T_END_ESTADO;}
-"</INICIAL>"                                    { token_print(T_END_INICIAL); yylval.strval=strdup(yytext); return T_END_INICIAL;}
-"</FINAL>"                                      { token_print(T_END_FINAL); yylval.strval=strdup(yytext); return T_END_FINAL;}
-"</TRANSICIONES>"                               { token_print(T_END_TRANSICIONES); yylval.strval=strdup(yytext); return T_END_TRANSICIONES;}
+"</AUTOMATA_AFN>"                               { token_print(T_END_AUTOMATA_AFN); yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_AUTOMATA_AFN;}
+"</ALFABETO>"                                   { token_print(T_END_ALFABETO); yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_ALFABETO;}
+"</ESTADO>"                                     { token_print(T_END_ESTADO); yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_ESTADO;}
+"</INICIAL>"                                    { token_print(T_END_INICIAL); yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_INICIAL;}
+"</FINAL>"                                      { token_print(T_END_FINAL); yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_FINAL;}
+"</TRANSICIONES>"                               { token_print(T_END_TRANSICIONES); yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_TRANSICIONES;}
 
-"&"                                             {token_print(T_SIMBOLO); yylval.strval=strdup(yytext); return T_SIMBOLO;}
-
-
-
-\"[1-9][0-9]*\"                                 { token_print(T_POSITIVE_INTEGER); yylval.strval=strdup(yytext); return T_POSITIVE_INTEGER;}  
-[a-zA-Z]                                        { token_print(T_STRING); yylval.strval=strdup(yytext); return T_STRING;}
-\'[a-zA-Z0-9_\-\.]*\'                           { token_print(T_STRING_SINGLE_QUOTE); yylval.strval=strdup(yytext); return T_STRING_SINGLE_QUOTE;}  
-\"[a-zA-Z0-9_\-\.]*" "[a-zA-Z0-9_\-\.]*\"       { token_print(T_STRING_DQ_SPACE); yylval.strval=strdup(yytext); return T_STRING_DQ_SPACE;}
-[0-9]+		                                      {token_print(T_INT); yylval.strval=strdup(yytext); return T_INT;}
+"&"                                             {token_print(T_SIMBOLO); yylval.strval=strdup(yytext); close_vitacora_file(); return T_SIMBOLO;}
 
 
 
+\"[1-9][0-9]*\"                                 { token_print(T_POSITIVE_INTEGER); yylval.strval=strdup(yytext); close_vitacora_file(); return T_POSITIVE_INTEGER;}  
+[a-zA-Z]                                        { token_print(T_STRING); yylval.strval=strdup(yytext); close_vitacora_file(); return T_STRING;}
+\'[a-zA-Z0-9_\-\.]*\'                           { token_print(T_STRING_SINGLE_QUOTE); yylval.strval=strdup(yytext);close_vitacora_file();  return T_STRING_SINGLE_QUOTE;}  
+\"[a-zA-Z0-9_\-\.]*" "[a-zA-Z0-9_\-\.]*\"       { token_print(T_STRING_DQ_SPACE); yylval.strval=strdup(yytext); close_vitacora_file(); return T_STRING_DQ_SPACE;}
+[0-9]+		                                      {token_print(T_INT); yylval.strval=strdup(yytext); close_vitacora_file(); return T_INT;}
 
-"."                                           { token_print(T_DOT); yylval.strval=strdup(yytext); return T_DOT;}
-","                                           { token_print(T_COMMA); yylval.strval=strdup(yytext); return T_COMMA;}
-"="                                           { token_print(T_ASSIGN); yylval.strval=strdup(yytext); return T_ASSIGN;}
-":"                                           { token_print(T_COLON); yylval.strval=strdup(yytext); return T_COLON;}
-"["                                           { token_print(T_LBRACK); yylval.strval=strdup(yytext); return T_LBRACK;}
-"]"                                           { token_print(T_RBRACK); yylval.strval=strdup(yytext); return T_RBRACK;}
-"/"                                           { token_print(T_SLASH); yylval.strval=strdup(yytext); return T_SLASH;}
-"!"                                           { token_print(T_EXCLAMATION); yylval.strval=strdup(yytext); return T_EXCLAMATION ;}
-"-"                                           { token_print(T_DASH); yylval.strval=strdup(yytext); return T_DASH;}
-"{"                                           { token_print(T_LBRACES); yylval.strval=strdup(yytext); return T_LBRACES;}
-"}"                                           { token_print(T_RBRACES); yylval.strval=strdup(yytext); return T_RBRACES;}
-"@"                                           { token_print(T_AT); yylval.strval=strdup(yytext); return T_AT;}
-"?"                                           { token_print(T_QUESTION_MARK); yylval.strval=strdup(yytext); return T_QUESTION_MARK ;}
-"_"                                           { token_print(T_UNDERSCORE); yylval.strval=strdup(yytext); return T_UNDERSCORE;}
-"#"                                           { token_print(T_HASH); yylval.strval=strdup(yytext); return T_HASH;}
-"'"                                           { token_print(T_SQUOTES); yylval.strval=strdup(yytext); return T_SQUOTES;}
+
+
+
+"."                                           { token_print(T_DOT); yylval.strval=strdup(yytext); close_vitacora_file(); return T_DOT;}
+","                                           { token_print(T_COMMA); yylval.strval=strdup(yytext); close_vitacora_file(); return T_COMMA;}
+"="                                           { token_print(T_ASSIGN); yylval.strval=strdup(yytext); close_vitacora_file(); return T_ASSIGN;}
+":"                                           { token_print(T_COLON); yylval.strval=strdup(yytext); close_vitacora_file(); return T_COLON;}
+"["                                           { token_print(T_LBRACK); yylval.strval=strdup(yytext); close_vitacora_file(); return T_LBRACK;}
+"]"                                           { token_print(T_RBRACK); yylval.strval=strdup(yytext); close_vitacora_file(); return T_RBRACK;}
+"/"                                           { token_print(T_SLASH); yylval.strval=strdup(yytext); close_vitacora_file(); return T_SLASH;}
+"!"                                           { token_print(T_EXCLAMATION); yylval.strval=strdup(yytext); close_vitacora_file(); return T_EXCLAMATION ;}
+"-"                                           { token_print(T_DASH); yylval.strval=strdup(yytext); close_vitacora_file(); return T_DASH;}
+"{"                                           { token_print(T_LBRACES); yylval.strval=strdup(yytext); close_vitacora_file(); return T_LBRACES;}
+"}"                                           { token_print(T_RBRACES); yylval.strval=strdup(yytext); close_vitacora_file(); return T_RBRACES;}
+"@"                                           { token_print(T_AT); yylval.strval=strdup(yytext); close_vitacora_file(); return T_AT;}
+"?"                                           { token_print(T_QUESTION_MARK); yylval.strval=strdup(yytext); close_vitacora_file(); return T_QUESTION_MARK ;}
+"_"                                           { token_print(T_UNDERSCORE); yylval.strval=strdup(yytext); close_vitacora_file(); return T_UNDERSCORE;}
+"#"                                           { token_print(T_HASH); yylval.strval=strdup(yytext); close_vitacora_file(); return T_HASH;}
+"'"                                           { token_print(T_SQUOTES); yylval.strval=strdup(yytext); close_vitacora_file(); return T_SQUOTES;}
 [  \t]+                                         {   }  
 <<EOF>>                                       { token_print(T_EOF); yylval.strval=strdup(yytext); return T_EOF;}
 .                                             { printf("UNRECOGNIZED_CHAR: %s\n", yytext); }
@@ -119,13 +120,36 @@ WHITESPACE          [ \t]
 %%
 
 
-void token_print(){            ////////////////////// ** error 
+// void token_print(){            ////////////////////// ** error 
+//     if(FLEX_DEBUG && SHOW_TOKENS){
+//         printf("TOKEN FOUND: %s  | LINE: %d\n", yytext,lineno);
+//     }    
+// }
+void token_print(){
     if(FLEX_DEBUG && SHOW_TOKENS){
-        printf("TOKEN FOUND: %s  | LINE: %d\n", yytext,lineno);
-    }    
-}
+        printf("TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
 
+        // Abre el archivo en modo de escritura al final del archivo (creándolo si no existe).
+        if (vitacora_tokens_file == NULL) {
+            vitacora_tokens_file = fopen("vitacora_tokens.html", "a");
+            if (vitacora_tokens_file == NULL) {
+                perror("Error al abrir el archivo vitacora_tokens.html");
+                return;
+            }
+        }
+
+        // Escribe la línea en el archivo.
+        fprintf(vitacora_tokens_file, "TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
+    }
+}
 //print if comment is found 
+
+void close_vitacora_file() {
+    if (vitacora_tokens_file != NULL) {
+        fclose(vitacora_tokens_file);
+        vitacora_tokens_file = NULL;  // Establece el puntero de archivo a NULL después de cerrarlo.
+    }
+}
 
 void comment_print(){            ////////////////////// ** error 
     if(FLEX_DEBUG && SHOW_COMMENTS){
