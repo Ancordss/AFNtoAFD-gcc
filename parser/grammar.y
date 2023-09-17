@@ -11,7 +11,7 @@ int tokens_iniciales[100]; // Tamaño suficiente para tokens de iniciales
 int num_tokens_iniciales = 0;
 int tokens_finalesattributes[100]; // Tamaño suficiente para tokens de finalesattributes
 int num_tokens_finalesattributes = 0;
-int tokens_transicionales[100]; // Tamaño suficiente para tokens de estados transicionales
+char *tokens_transicionales[100]; // Tamaño suficiente para tokens de estados transicionales
 int num_tokens_transicionales = 0; 
 char* tokens_linearlayout[100]; // Tamaño suficiente para tokens de linearlayout
 int num_tokens_linearlayout = 0; 
@@ -208,9 +208,10 @@ transicionales:         T_TRANSICIONES transicionalesattributes T_END_TRANSICION
 
 transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                          {
-                            // char variable
-                            // variable=$1+","$3+","$5
-                             int error_line = lineno;
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($1), $3, atoi($5));
+
+                            int error_line = lineno;
 
                              if (strcmp($3, t_alfabeto0) != 0 && strcmp($3, t_alfabeto1) != 0)
                                 {
@@ -218,18 +219,26 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $3);
                                     yyerror(error_message);
                                 }
-                                // Almacena el token T_INT en la matriz de tokens transicionales
-                                tokens_transicionales[num_tokens_transicionales++] = atoi($1);
+                            
+                            tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                            //printf("Transicionales %s\n", tokens_transicionales[0]);
+
                          }
                           
                          T_INT T_COMMA T_SIMBOLO T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($7), $9, atoi($11));
+
+                            tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
 
 
                          T_INT T_COMMA  T_STRING T_COMMA  T_INT
                          {
                              int error_line = lineno;
 
-                             if (strcmp($14, t_alfabeto0) != 0 && strcmp($14, t_alfabeto1) != 0)
+                             if (strcmp($15, t_alfabeto0) != 0 && strcmp($15, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $14);
@@ -242,7 +251,7 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                          {
                              int error_line = lineno;
 
-                             if (strcmp($20, t_alfabeto0) != 0 && strcmp($20, t_alfabeto1) != 0)
+                             if (strcmp($21, t_alfabeto0) != 0 && strcmp($21, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $20);
@@ -255,7 +264,7 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                          {
                              int error_line = lineno;
 
-                             if (strcmp($26, t_alfabeto0) != 0 && strcmp($26, t_alfabeto1) != 0)
+                             if (strcmp($27, t_alfabeto0) != 0 && strcmp($27, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $26);
@@ -268,7 +277,7 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                          {
                              int error_line = lineno;
 
-                             if (strcmp($32, t_alfabeto0) != 0 && strcmp($32, t_alfabeto1) != 0)
+                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($33, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
@@ -362,13 +371,9 @@ for (int i = 0; i < num_tokens_finalesattributes; i++) {
 }
 
 // Imprimir tokens de TRANSICIONALES
-for (int i = 0; i < num_tokens_transicionales; i++) {
-    int index = i * 3;
-    int estado_origen = tokens_transicionales[index];
-    char simbolo = (char)tokens_transicionales[index + 1];
-    int estado_destino = tokens_transicionales[index + 2];
-    printf("TOKEN FOUND in TRANSICIONALES: %d,%c,%d\n", estado_origen, simbolo, estado_destino);
-}
+ for (int i = 0; i < num_tokens_transicionales; i++) {
+        printf("TOKEN FOUND in TRANSICIONALES tokens_transicionales[%d] = %s\n", i, tokens_transicionales[i]);
+    }
 
         
       }
