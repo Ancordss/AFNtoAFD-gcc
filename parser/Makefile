@@ -3,7 +3,7 @@ GRAMMAR_FILE = grammar.y
 LEXICAL_FILE = lexical.l
 TEST_SOURCE_C = test.c
 TEST_SOURCE_CPP = test.cpp
-LIB_DIR = "D:\UNI\6to semestre\automatas\AFNtoAFD-gcc\parser"
+LIB_DIR = "C:\Users\HP\Desktop\AFNtoAFD-gcc\parser"
 OUTPUT_SHARED_LIB = libmi_parser.so
 # all: Bison flex gcc run (old)
 all: Bison flex buildcpp run

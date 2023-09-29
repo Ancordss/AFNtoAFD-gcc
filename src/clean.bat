@@ -3,5 +3,7 @@ del src\*.exe
 del vitacora_tokens.html
 del vitacora_errores.html
 del libmi_parser.so
-
-
+del afn.html
+del afn.png
+del afn.dot
+del imagen.html

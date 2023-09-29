@@ -1,7 +1,7 @@
 
 SOURCE_CPP = main.cpp
 CLEANFILE_SRC = src/clean.bat
-LIB_DIR = "D:\UNI\6to semestre\automatas\AFNtoAFD-gcc\parser"
+LIB_DIR = "C:\Users\HP\Desktop\AFNtoAFD-gcc\parser"
 OUTPUT_SHARED_LIB = libmi_parser.so
 # all: Bison flex gcc run (old)
 all: buildcpp run
