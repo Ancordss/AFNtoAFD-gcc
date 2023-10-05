@@ -140,6 +140,9 @@ void token_print(){
 
         // Escribe la línea en el archivo.
         fprintf(vitacora_tokens_file, "TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
+        fclose(vitacora_tokens_file);
+        vitacora_tokens_file = NULL;
+        
     }
 }
 //print if comment is found 

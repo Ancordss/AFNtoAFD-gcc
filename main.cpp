@@ -513,7 +513,7 @@ int main() {
         switch (choice) {
         case 1:
             //LoadXMLFile();
-            show_filehtml("parser/vitacora_tokens.html");
+            show_filehtml("vitacora_tokens.html");
             break;
         case 2:
             ShowLoadedData();

@@ -139,25 +139,16 @@ program :                 T_AUTOMATA_AFN linearlayout estados iniciales finales 
 //                         |  T_LINEAR_LAYOUT linearlayoutattributes element  T_END_LINEAR_LAYOUT linearlayout
 //                         ;
 
-linearlayout: T_ALFABETO {
-                    //TODO: no tienes que hardcodear los valores tenes que ver cuales estan ingresados y de ahi insertarlos
-                    // En lugar de almacenar el valor de T_ALFABETO, almacena "a" y "b" en el array
-                    tokens_linearlayout[num_tokens_linearlayout++] = strdup("a");
-                    tokens_linearlayout[num_tokens_linearlayout++] = strdup("b");
-                    } linearlayoutattributes element T_END_ALFABETO
-                    | T_ALFABETO {
-                     // En lugar de almacenar el valor de T_ALFABETO, almacena "a" y "b" en el array
-                    tokens_linearlayout[num_tokens_linearlayout++] = strdup("a");
-                    tokens_linearlayout[num_tokens_linearlayout++] = strdup("b");
-                    } linearlayoutattributes element T_END_ALFABETO linearlayout
-                    ;
+linearlayout: T_ALFABETO alfabeto_letras  T_END_ALFABETO;
 
 
                               
                         
-linearlayoutattributes: T_STRING T_STRING {
+alfabeto_letras: T_STRING T_STRING {
     t_alfabeto0 = strdup($1); // Almacena el valor del primer T_STRING en t_alfabeto0
     t_alfabeto1 = strdup($2); // Almacena el valor del segundo T_STRING en t_alfabeto1
+    tokens_linearlayout[num_tokens_linearlayout++] = strdup($1);
+    tokens_linearlayout[num_tokens_linearlayout++] = strdup($2);
 }
 
                         
