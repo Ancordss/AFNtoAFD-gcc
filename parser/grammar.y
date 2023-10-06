@@ -327,6 +327,22 @@ void init_parser(FILE *input_file) {
     // Otras configuraciones, si es necesario
 }
 
+void cleanup_parser() {
+    memset(tokens_estadosattributes, 0, sizeof(tokens_estadosattributes));
+    num_tokens_estadosattributes = 0;
+
+    memset(tokens_iniciales, 0, sizeof(tokens_iniciales));
+    num_tokens_iniciales = 0;
+
+    memset(tokens_finalesattributes, 0, sizeof(tokens_finalesattributes));
+    num_tokens_finalesattributes = 0;
+
+    memset(tokens_transicionales, 0, sizeof(tokens_transicionales));
+    num_tokens_transicionales = 0;
+
+    memset(tokens_linearlayout, 0, sizeof(tokens_linearlayout));
+    num_tokens_linearlayout = 0;
+}
 
 char** get_tokens_linearlayout() {
         return tokens_linearlayout;
@@ -360,6 +376,9 @@ int parse_xml() {
 
     // Cierra el archivo y realiza cualquier limpieza necesaria
     fclose(yyin);
+
+
+
 
     if (error_count > 0) {
         printf("Syntax Analysis failed due to %d errors\n", error_count);

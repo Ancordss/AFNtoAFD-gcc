@@ -14,6 +14,11 @@
 using namespace std;
 
 
+char **alfabeto_tokens;
+char **finalesattributes_tokens;
+char **estados_atributos_tokens;
+char **transiconales_tokens;
+
 bool fileExists(const string& filename) {
     ifstream file(filename);
     return file.good();
@@ -358,13 +363,16 @@ void LoadXMLFile() {
     }
 }
 
-
+std::vector<std::string> alfabeto_tokens_vector;
+std::vector<std::string> finalesattributes_vector;
+std::vector<std::string> estados_atributos_tokens_vector;
+std::vector<std::string> transiconales_tokens_vector;
 
 void ShowLoadedData() {            
     cout << "Mostrando datos cargados..." << endl;
 
-    char **alfabeto_tokens = get_tokens_linearlayout();
-        std::vector<std::string> alfabeto_tokens_vector;
+    alfabeto_tokens = get_tokens_linearlayout();
+        //std::vector<std::string> alfabeto_tokens_vector;
         if (alfabeto_tokens != NULL) {
             alfabeto_tokens_vector = charArrayToVector(alfabeto_tokens);
             if (!alfabeto_tokens_vector.empty()) {
@@ -377,8 +385,8 @@ void ShowLoadedData() {
             }
         }
 
-    char **finalesattributes_tokens = get_tokens_finalesattributes();
-        std::vector<std::string> finalesattributes_vector;
+    finalesattributes_tokens = get_tokens_finalesattributes();
+        
         if (finalesattributes_tokens != NULL) {
             finalesattributes_vector = charArrayToVector(finalesattributes_tokens);
             if (!alfabeto_tokens_vector.empty()) {
@@ -391,8 +399,8 @@ void ShowLoadedData() {
             }
         }
 
-    char **estados_atributos_tokens = get_tokens_estadosattributes();
-        std::vector<std::string> estados_atributos_tokens_vector;
+    estados_atributos_tokens = get_tokens_estadosattributes();
+        
         if (estados_atributos_tokens != NULL) {
             estados_atributos_tokens_vector = charArrayToVector(estados_atributos_tokens);
             if (!estados_atributos_tokens_vector.empty()) {
@@ -405,8 +413,8 @@ void ShowLoadedData() {
             }
         }
     
-    char **transiconales_tokens = get_tokens_transcicionales();
-        std::vector<std::string> transiconales_tokens_vector;
+    transiconales_tokens = get_tokens_transcicionales();
+        
         if (transiconales_tokens != NULL) {
             transiconales_tokens_vector = charArrayToVector(transiconales_tokens);
             if (!transiconales_tokens_vector.empty()) {
@@ -468,7 +476,145 @@ void ShowAFD() {
     cout << "Mostrando AFD..." << endl;
 }
 
+void Cleanpath() {
+        const char* archivos[] = {
+        "vitacora_tokens.html",
+        "vitacora_errores.html",
+        "afn.html",
+        "afn.png",
+        "afn.dot",
+        "imagen.html"
+    };
+
+    free(alfabeto_tokens);
+    alfabeto_tokens = NULL;
+
+    free(finalesattributes_tokens);
+    finalesattributes_tokens = NULL;
+
+    free(estados_atributos_tokens);
+    estados_atributos_tokens = NULL;
+
+    free(transiconales_tokens);
+    transiconales_tokens = NULL;
+
+
+    alfabeto_tokens_vector.clear();
+    finalesattributes_vector.clear();
+    estados_atributos_tokens_vector.clear();
+    transiconales_tokens_vector.clear();
+
+
+     for (const char* archivo : archivos) {
+        if (std::remove(archivo) == 0) {
+            std::cout << "cleaning Path..." << std::endl;
+        } else {
+            // std::cerr << "Error al eliminar el archivo '" << archivo << "'" << std::endl;
+        }
+    }
+
+    cleanup_parser();
+}
+
+
 int main() {
+    int choice;
+    bool exitProgram = false; // Variable para controlar la ejecución del programa
+
+    do {
+        cout << "----------Menu Inicial------------" << endl;
+        cout << "1. Cargar Archivo XML" << endl;
+        cout << "2. Crear Archivo XML Existente" << endl;
+        cout << "3. Salir" << endl;
+        cout << "-----------------------------------" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            // Llamar a LoadXMLFile();
+            
+            LoadXMLFile();
+            break;
+        case 2:
+            // Llamar a GenerateHelloWorldXML();
+            GenerateHelloWorldXML();
+            break;
+        case 3:
+            cout << "Saliendo del programa." << endl;
+            return 0;
+        default:
+            cout << "Opción no válida. Por favor, seleccione una opción válida." << endl;
+            break;
+        }
+
+        if (choice != 3) {
+            bool returnToMainMenu = false;
+
+            do {
+                std::vector<std::string> alfabeto_tokens_vector; // Define e inicializa tus vectores aquí
+                std::vector<std::string> estados_atributos_tokens_vector;
+                std::vector<std::string> transiconales_tokens_vector;
+
+                cout << "----------Menu Principal------------" << endl;
+                cout << "1. Mostrar Vitacora" << endl;
+                cout << "2. Mostrar AFN" << endl;
+                cout << "3. Convertir AFN a AFD" << endl;
+                cout << "4. Mostrar AFD" << endl;
+                cout << "5. Salir al Menu Inicial" << endl; // Cambié 6 a 5 para volver al menú inicial
+                cout << "6. Capturar arrays" << endl;
+                cout << "7. Mostrar dibujito" << endl;
+                cout << "--------------------------------------" << endl;
+                cout << "Seleccione una opcion: ";
+                cin >> choice;
+
+                switch (choice) {
+                case 1:
+                    // Llamar a show_filehtml("vitacora_tokens.html");
+                    show_filehtml("vitacora_tokens.html");
+                    break;
+                case 2:
+                    // Llamar a ShowLoadedData();
+                    ShowLoadedData();
+                    break;
+                case 3:
+                    // Llamar a AFNToAFD();
+                    AFNToAFD();
+                    break;
+                case 4:
+                    // Llamar a ShowAFD();
+                    ShowAFD();
+                    break;
+                case 5:
+                    Cleanpath();
+                    returnToMainMenu = true;
+                    break;
+                case 6:
+                    // Llamar a GenerateHTMLWithData(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector);
+                    GenerateHTMLWithData(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector);
+                    break;
+                case 7:
+                    // Llamar a show_png("afn.png");
+                    // Llamar a show_filehtml("imagen.html")
+                    if (fileExists("afn.png")) {
+                    show_png("afn.png");
+                    show_filehtml("imagen.html");
+                    } else {
+                        cout << "Primero debes seleccionar la opción 2 para generar el archivo afn.png." << endl;
+                    }
+                    break;
+                default:
+                    cout << "Opcion no válida. Por favor, seleccione una opcion valida." << endl;
+                    break;
+                }
+            } while (!returnToMainMenu); // Continuar el segundo menú hasta que se elija regresar al menú inicial
+        }
+    } while (!exitProgram);
+
+    return 0;
+}
+
+/*int main() {
     int choice;
 
     cout << "----------Menu Inicial------------" << endl;
@@ -534,7 +680,6 @@ int main() {
             GenerateHTMLWithData(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector);
             break;
         case 8:
-            
             show_png("afn.png");
             show_filehtml("imagen.html");
         break;
@@ -546,6 +691,7 @@ int main() {
 
     return 0;
 }
+*/
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración

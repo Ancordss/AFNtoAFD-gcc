@@ -24,6 +24,7 @@ extern "C" {
 #include <stdio.h>
 
 void init_parser(FILE *input_file);
+void cleanup_parser();
 int parse_xml();
 char** get_tokens_linearlayout();
 char** get_tokens_estadosattributes();
