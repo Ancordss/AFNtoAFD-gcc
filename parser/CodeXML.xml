@@ -1,6 +1,6 @@
 <AUTOMATA_AFN>
 <ALFABETO>
-   e
+   hola
    r
 </ALFABETO>
 <ESTADO>
@@ -17,9 +17,9 @@
 3
 </FINAL>
 <TRANSICIONES>
-0,e,0
+0,hola,0
 0,&,1
-0,e,1
+0,hola,1
 0,r,0
 1,r,2
 2,r,3
