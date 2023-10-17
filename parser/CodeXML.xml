@@ -1,41 +1,24 @@
 <AUTOMATA_AFN>
 <ALFABETO>
-<<<<<<< HEAD
-   p
-   o
-=======
-   hola
-   r
->>>>>>> db7302c9e650bd8db24fe61e511c38408a27b05d
+   a
+   b
 </ALFABETO>
 <ESTADO>
+0
 1
 2
 3
-4
 </ESTADO>
 <INICIAL>
-1
+0
 </INICIAL>
 <FINAL>
-4
+3
 </FINAL>
 <TRANSICIONES>
-<<<<<<< HEAD
-1,p,4
-2,&,1
-3,p,2
-1,o,1
-2,o,3
-3,o,4
-=======
-0,hola,0
 0,&,1
-0,hola,1
-0,r,0
-1,r,2
-2,r,3
->>>>>>> db7302c9e650bd8db24fe61e511c38408a27b05d
+1,&,2
+1,a,3
 </TRANSICIONES>
 </AUTOMATA_AFN>
 <!--This is a comment, ignore me! -->

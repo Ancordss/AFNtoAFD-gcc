@@ -69,12 +69,12 @@ WHITESPACE          [ \t]
 "</FINAL>"                                      { token_print(T_END_FINAL); yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_FINAL;}
 "</TRANSICIONES>"                               { token_print(T_END_TRANSICIONES); yylval.strval=strdup(yytext); close_vitacora_file(); return T_END_TRANSICIONES;}
 
-"&"                                             {token_print(T_SIMBOLO); yylval.strval=strdup(yytext); close_vitacora_file(); return T_SIMBOLO;}
+"."                                             {token_print(T_SIMBOLO); yylval.strval=strdup(yytext); close_vitacora_file(); return T_SIMBOLO;}
 
 
 
 \"[1-9][0-9]*\"                                 { token_print(T_POSITIVE_INTEGER); yylval.strval=strdup(yytext); close_vitacora_file(); return T_POSITIVE_INTEGER;}  
-[a-zA-Z]                                        { token_print(T_STRING); yylval.strval=strdup(yytext); close_vitacora_file(); return T_STRING;}
+[a-zA-Z&]*                                        { token_print(T_STRING); yylval.strval=strdup(yytext); close_vitacora_file(); return T_STRING;}
 \'[a-zA-Z0-9_\-\.]*\'                           { token_print(T_STRING_SINGLE_QUOTE); yylval.strval=strdup(yytext);close_vitacora_file();  return T_STRING_SINGLE_QUOTE;}  
 \"[a-zA-Z0-9_\-\.]*" "[a-zA-Z0-9_\-\.]*\"       { token_print(T_STRING_DQ_SPACE); yylval.strval=strdup(yytext); close_vitacora_file(); return T_STRING_DQ_SPACE;}
 [0-9]+		                                      {token_print(T_INT); yylval.strval=strdup(yytext); close_vitacora_file(); return T_INT;}

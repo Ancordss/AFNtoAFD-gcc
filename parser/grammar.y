@@ -219,7 +219,7 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                          }
                           
-                         T_INT T_COMMA T_SIMBOLO T_COMMA  T_INT
+                         T_INT T_COMMA T_STRING T_COMMA  T_INT
                          {
                             char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
                             sprintf(concatenated_values, "%d,%s,%d", atoi($7), $9, atoi($11));
