@@ -292,6 +292,7 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                                 }
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
+
                          ;
                           
 

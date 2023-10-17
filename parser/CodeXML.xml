@@ -1,28 +1,27 @@
 <AUTOMATA_AFN>
 <ALFABETO>
-   e
-   r
+   p
+   o
 </ALFABETO>
 <ESTADO>
-0
 1
 2
 3
+4
 </ESTADO>
 <INICIAL>
-0
+1
 </INICIAL>
 <FINAL>
-2
-3
+4
 </FINAL>
 <TRANSICIONES>
-0,e,0
-0,&,1
-0,e,1
-0,r,0
-1,r,2
-2,r,3
+1,p,4
+2,&,1
+3,p,2
+1,o,1
+2,o,3
+3,o,4
 </TRANSICIONES>
 </AUTOMATA_AFN>
 <!--This is a comment, ignore me! -->
