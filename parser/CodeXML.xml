@@ -2,8 +2,6 @@
 <ALFABETO>
    a
    b
-   c
-   d
 </ALFABETO>
 <ESTADO>
 0
@@ -12,22 +10,32 @@
 3
 4
 5
+6
+7
+8
+9
+10
 </ESTADO>
 <INICIAL>
 0
 </INICIAL>
 <FINAL>
-3
+10
 </FINAL>
 <TRANSICIONES>
-0,a,0
 0,&,1
-0,a,1
-0,b,0
-1,b,2
-2,b,3
-1,b,2
-2,b,3
+1,&,2
+2,a,3
+3,&,4
+1,&,5
+5,b,6
+6,&,4
+4,&,7
+7,a,8
+8,b,9
+9,b,10
+4,&,1
+0,&,7
 </TRANSICIONES>
 </AUTOMATA_AFN>
 <!--This is a comment, ignore me! -->

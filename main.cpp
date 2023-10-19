@@ -23,6 +23,7 @@ char **alfabeto_tokens;
 char **finalesattributes_tokens;
 char **estados_atributos_tokens;
 char **transiconales_tokens;
+char **iniciales_tokens;
 
 bool fileExists(const string& filename) {
     ifstream file(filename);
@@ -169,163 +170,61 @@ struct Transition {
     std::string to;
 };
 
-std::string join(const std::vector<std::string>& elements, const std::string& separator) {
-    std::string result;
-    for (size_t i = 0; i < elements.size(); ++i) {
-        result += elements[i];
-        if (i < elements.size() - 1) {
-            result += separator;
+
+// Definición de una transición en el AFN
+struct AFNTransition {
+    string fromState;
+    string inputSymbol;
+    string toState;
+};
+
+// Función para convertir un AFN en un AFD
+map<set<string>, map<string, set<string>>> convertToAFD(
+    vector<AFNTransition>& afnTransitions,
+    set<string>& afnAcceptStates,
+    vector<string>& alphabet,
+    string startState
+) {
+    map<set<string>, map<string, set<string>>> afdTransitions;
+    queue<set<string>> statesQueue;
+    map<set<string>, bool> visited;
+
+    // Calcula la clausura-épsilon del estado inicial
+    set<string> initialState;
+    initialState.insert(startState);
+    statesQueue.push(initialState);
+    visited[initialState] = true;
+
+    while (!statesQueue.empty()) {
+        set<string> currentState = statesQueue.front();
+        statesQueue.pop();
+
+        for (const string& symbol : alphabet) {
+            set<string> nextState;
+            for (const string& state : currentState) {
+                for (const AFNTransition& transition : afnTransitions) {
+                    if (transition.fromState == state && (transition.inputSymbol == symbol || transition.inputSymbol == "&")) {
+                        nextState.insert(transition.toState);
+                    }
+                }
+            }
+
+            if (!nextState.empty() && !visited[nextState]) {
+                statesQueue.push(nextState);
+                visited[nextState] = true;
+            }
+
+            afdTransitions[currentState][symbol] = nextState;
         }
     }
-    return result;
+
+    return afdTransitions;
 }
 
 
 
-void convertirAFNtoAFD(const std::vector<std::string>& alfabeto_tokens_vector,
-                       const std::vector<std::string>& finalesattributes_vector,
-                       const std::vector<std::string>& estados_atributos_tokens_vector,
-                       const std::vector<std::string>& transicionales_tokens_vector) {
-    
-    //transicionales_tokens_vector.clear();
-     std::vector<Transition> AFNtransitions;
-    std::cout << "Tamaño del vector: " << transicionales_tokens_vector.size() << std::endl;
 
-    // Recorrer las cadenas en transicionales_tokens_vector
-    for (size_t i = 0; i < 6 && i < transicionales_tokens_vector.size(); ++i) {
-    const std::string& transicion = transicionales_tokens_vector[i];
-    // Usar un stringstream para dividir la cadena en sus componentes
-    std::stringstream ss(transicion);
-    std::string from, symbol, to;
 
-    // Leer los componentes separados por comas
-    if (std::getline(ss, from, ',') && std::getline(ss, symbol, ',') && std::getline(ss, to, ',')) {
-        // Verificar si la transición ya existe en AFNtransitions antes de agregarla
-        bool transicionDuplicada = false;
-        for (const Transition& existingTransition : AFNtransitions) {
-            if (existingTransition.from == from && existingTransition.symbol == symbol && existingTransition.to == to) {
-                transicionDuplicada = true;
-                break;
-            }
-        }
-        
-        // Si no es una transición duplicada, agrégala a AFNtransitions
-        if (!transicionDuplicada) {
-            AFNtransitions.push_back({from, symbol, to});
-        } else {
-            // Manejar transiciones duplicadas aquí si es necesario
-            std::cerr << "Transición duplicada: " << transicion << std::endl;
-        }
-    } else {
-        // Manejar errores o registros mal formateados aquí si es necesario
-        std::cerr << "Error en el formato de transición: " << transicion << std::endl;
-        }
-    }
-
-    std::vector<std::string> AFNstates = estados_atributos_tokens_vector;
-    std::string AFNinitialState = estados_atributos_tokens_vector[0];
-    std::vector<std::string> AFNfinalStates = finalesattributes_vector;
-
-    // Obtener símbolos AFD de las transiciones de AFN
-    std::vector<std::string> AFDsymbols;
-    for (const Transition& afnTransition : AFNtransitions) {
-        if (afnTransition.symbol != "&") {
-            AFDsymbols.push_back(afnTransition.symbol);
-        }
-    }
-
-    // Datos de AFD
-    std::vector<Transition> AFDtransitions;
-    std::vector<std::vector<std::string>> AFDstates;
-    std::string AFDinitialState = AFNinitialState;
-    std::vector<std::vector<std::string>> AFDfinalStates;
-
-    // Combinación de estados sin repetición
-    for (const std::string& state : AFNstates) {
-        AFDstates.push_back({state});
-    }
-
-    for (int i = 0; i < AFDstates.size(); i++) {
-        for (const std::string& symbol : AFDsymbols) {
-            std::vector<std::string> combinedStates;
-            for (const Transition& afnTransition : AFNtransitions) {
-                if (afnTransition.from == AFDstates[i][0] && afnTransition.symbol == symbol) {
-                    combinedStates.push_back(afnTransition.to);
-                }
-            }
-            if (!combinedStates.empty()) {
-                std::sort(combinedStates.begin(), combinedStates.end());
-                combinedStates.erase(std::unique(combinedStates.begin(), combinedStates.end()), combinedStates.end());
-                AFDtransitions.push_back({AFDstates[i][0], symbol, combinedStates[0]});
-
-                // Agregar nuevos estados combinados al conjunto de estados AFD
-                if (std::find(AFDstates.begin(), AFDstates.end(), combinedStates) == AFDstates.end()) {
-                    AFDstates.push_back(combinedStates);
-                }
-            }
-        }
-    }
-
-    // Encontrar estados finales de AFD
-    for (const std::vector<std::string>& combinedStates : AFDstates) {
-        for (const std::string& state : combinedStates) {
-            if (std::find(AFNfinalStates.begin(), AFNfinalStates.end(), state) != AFNfinalStates.end()) {
-                AFDfinalStates.push_back(combinedStates);
-                break;
-            }
-        }
-    }
-
-    // Impresión de datos de AFD (puedes adaptar esto según tus necesidades)
-    std::cout << "=============AFD=============" << std::endl;
-    std::cout << "AFD - Transitions:" << std::endl;
-    for (const Transition& transition : AFDtransitions) {
-        std::cout << "from: " << transition.from << ", symbol: " << transition.symbol << ", to: " << transition.to << std::endl;
-    }
-    std::cout << "AFD - Symbols:" << std::endl;
-    for (const std::string& symbol : AFDsymbols) {
-        std::cout << symbol << std::endl;
-    }
-    std::cout << "AFD - States:" << std::endl;
-    for (const std::vector<std::string>& state : AFDstates) {
-        for (const std::string& substate : state) {
-            std::cout << substate << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "AFD - InitialState: " << AFDinitialState << std::endl;
-    std::cout << "AFD - FinalStates:" << std::endl;
-    for (const std::vector<std::string>& finalState : AFDfinalStates) {
-        for (const std::string& substate : finalState) {
-            std::cout << substate << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::map<std::pair<std::string, std::string>, std::string> AFDtransitionsMap;
-
-    for (int i = 0; i < AFDstates.size(); i++) {
-        for (const std::string& symbol : AFDsymbols) {
-            std::vector<std::string> combinedStates;
-            for (const Transition& afnTransition : AFNtransitions) {
-                if (afnTransition.from == AFDstates[i][0] && afnTransition.symbol == symbol) {
-                    combinedStates.push_back(afnTransition.to);
-                }
-            }
-            if (!combinedStates.empty()) {
-                std::sort(combinedStates.begin(), combinedStates.end());
-                combinedStates.erase(std::unique(combinedStates.begin(), combinedStates.end()), combinedStates.end());
-
-                std::string combinedState = join(combinedStates, ",");
-                AFDtransitionsMap[{AFDstates[i][0], symbol}] = combinedState;
-
-                // Agregar nuevos estados combinados al conjunto de estados AFD
-                if (std::find(AFDstates.begin(), AFDstates.end(), combinedStates) == AFDstates.end()) {
-                    AFDstates.push_back(combinedStates);
-                }
-            }
-        }
-    }
-}
 
 
 void GenerarArchivoDOT_AFD(
@@ -677,10 +576,16 @@ void LoadXMLFile() {
             std::cerr << "Error opening temporary file" << std::endl;
         }
 
+        if (filePath.length() < 4 || filePath.substr(filePath.length() - 4) != ".xml") {
+            std::cerr<<"Error: Filepath must end with '.xml'."<< std::endl;
+            throw std::runtime_error("Error.");
+        }
+
         // Inicializa el parser con el archivo XML
         init_parser(xml_file_ptr);
         int result = parse_xml();
         if (result == 0) {
+            std::cout << "Cargando archivo XML desde '" << filePath << "'..." << std::endl;
             std::cout << "Analisis exitoso." << std::endl;
         }
     }
@@ -689,7 +594,7 @@ void LoadXMLFile() {
     }
 
     // Implementa la lógica para cargar el archivo XML aquí (código no proporcionado).
-    std::cout << "Cargando archivo XML desde '" << filePath << "'..." << std::endl;
+    
 }
 
 
@@ -697,7 +602,9 @@ std::vector<std::string> alfabeto_tokens_vector;
 std::vector<std::string> finalesattributes_vector;
 std::vector<std::string> estados_atributos_tokens_vector;
 std::vector<std::string> transiconales_tokens_vector;
-std::tuple<std::vector<std::string>, std::vector<std::string>, std::vector<std::string>, std::vector<std::string>> ShowLoadedData() {
+std::vector<std::string> iniciales_tokens_vector;
+
+std::tuple<std::vector<std::string>, std::vector<std::string>, std::vector<std::string>, std::vector<std::string>,std::vector<std::string>> ShowLoadedData() {
     std::cout << "Mostrando datos cargados..." << std::endl;
 
 
@@ -754,7 +661,22 @@ std::tuple<std::vector<std::string>, std::vector<std::string>, std::vector<std::
         }
     }
 
-    return std::make_tuple(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector);
+
+
+    iniciales_tokens = get_tokens_iniciales();
+    if (iniciales_tokens != NULL) {
+        iniciales_tokens_vector = charArrayToVector(iniciales_tokens);
+        if (!iniciales_tokens_vector.empty()) {
+            std::cout << "Tokens de inicio:" << std::endl;
+            for (const std::string& token : iniciales_tokens_vector) {
+                std::cout << token << std::endl;
+            }
+        } else {
+            std::cout << "No se encontraron tokens de inicio." << std::endl;
+        }
+    }
+
+    return std::make_tuple(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector,iniciales_tokens_vector);
 }
 
 // void ShowLoadedData() {            
@@ -906,6 +828,73 @@ void Cleanpath() {
 }
 
 
+void transform(std::vector<std::string> transiconales_tokens_vector,
+                    std::vector<std::string> alfabeto_tokens_vector,// Define e inicializa tus vectores aquí
+                std::vector<std::string> estados_atributos_tokens_vector,
+                std::vector<std::string> estados_finales_vector,
+                std::vector<std::string> iniciales_tokens_vector) {
+    vector<string> transitions = transiconales_tokens_vector;
+
+    // Vector de AFNTransition donde se almacenarán las transiciones
+    vector<AFNTransition> afnTransitions;
+
+    // Iterar sobre el vector de strings y convertir los datos a AFNTransition
+    for (const string& transitionString : transitions) {
+        size_t pos1 = transitionString.find(',');
+        size_t pos2 = transitionString.rfind(',');
+
+        if (pos1 != string::npos && pos2 != string::npos && pos1 != pos2) {
+            string fromState = transitionString.substr(0, pos1);
+            string inputSymbol = transitionString.substr(pos1 + 1, pos2 - pos1 - 1);
+            string toState = transitionString.substr(pos2 + 1);
+
+            AFNTransition transition;
+            transition.fromState = fromState;
+            transition.inputSymbol = inputSymbol;
+            transition.toState = toState;
+
+            afnTransitions.push_back(transition);
+        }
+    }
+
+    // Imprimir las transiciones convertidas
+    for (const AFNTransition& transition : afnTransitions) {
+        cout << "From: " << transition.fromState << ", Symbol: " << transition.inputSymbol << ", To: " << transition.toState << endl;
+    }
+
+    set<string> afnAcceptStates;
+    for (const string& token : iniciales_tokens_vector) {
+        afnAcceptStates.insert(token);
+    }
+    //set<string> afnAcceptStates = {"3"};
+    vector<string> alphabet = alfabeto_tokens_vector;
+    string startState = iniciales_tokens_vector[0];
+    cout << startState<< endl;
+
+    // Convertir el AFN en un AFD
+    map<set<string>, map<string, set<string>>> afdTransitions = convertToAFD(afnTransitions, afnAcceptStates, alphabet, startState);
+
+    // Imprimir las transiciones del AFD resultante
+    for (const auto& [currentState, transitionMap] : afdTransitions) {
+        cout << "Estado actual: {";
+        for (const string& state : currentState) {
+            cout << state << " ";
+        }
+        cout << "}\n";
+
+        for (const auto& [symbol, nextState] : transitionMap) {
+            cout << "  Con símbolo '" << symbol << "' va a {";
+            for (const string& state : nextState) {
+                cout << state << " ";
+            }
+            cout << "}\n";
+        }
+    }
+
+
+
+}
+
 int main() {
     int choice;
     bool exitProgram = false; // Variable para controlar la ejecución del programa
@@ -968,7 +957,7 @@ int main() {
                 case 2:
                     // Llamar a ShowLoadedData();
                     //ShowLoadedData();
-                    std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector) = ShowLoadedData();
+                    std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector,iniciales_tokens_vector) = ShowLoadedData();
 
                     // Ahora puedes usar las variables retornadas como desees
 
@@ -986,9 +975,12 @@ int main() {
                     break;
                 case 3:
                     // Llamar a AFNToAFD();
-                    std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector) = ShowLoadedData();
+                    std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector,iniciales_tokens_vector) = ShowLoadedData();
                     std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector) = ProcesarAFN(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector);
-                    convertirAFNtoAFD(alfabeto_tokens_vector, finalesattributes_vector, estados_atributos_tokens_vector, transiconales_tokens_vector);
+                       // Datos del AFN almacenados en vectores de string
+                    transform(transiconales_tokens_vector,alfabeto_tokens_vector,estados_atributos_tokens_vector,estados_finales_vector,iniciales_tokens_vector);
+
+                    
                     break;
                 case 4:
                     // Llamar a ShowAFD();

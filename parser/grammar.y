@@ -503,6 +503,22 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
                          }
 
+                        T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($73), $75, atoi($77));
+
+                             int error_line = lineno;
+
+                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($75, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
                          ;
                           
 
@@ -592,7 +608,7 @@ int parse_xml() {
 
 
     if (error_count > 0) {
-        printf("Syntax Analysis failed due to %d errors\n", error_count);
+        printf(" ");
     } else {
         printf("Syntax Analysis completed successfully.\n");
     }
@@ -703,6 +719,7 @@ void yyerror(const char *message) {
 
     // Abre el archivo en modo de escritura (creándolo si no existe).
     if (vitacora_errores_file == NULL) {
+        printf("Syntax Analysis Generated errors check the vitacora errors file");
         vitacora_errores_file = fopen("vitacora_errores.html", "a");
         if (vitacora_errores_file == NULL) {
             perror("Error al abrir el archivo vitacora_errores.html");
