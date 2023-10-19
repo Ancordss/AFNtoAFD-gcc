@@ -145,13 +145,57 @@ linearlayout: T_ALFABETO alfabeto_letras  T_END_ALFABETO;
                               
                         
 alfabeto_letras: T_STRING T_STRING {
-    t_alfabeto0 = strdup($1); // Almacena el valor del primer T_STRING en t_alfabeto0
-    t_alfabeto1 = strdup($2); // Almacena el valor del segundo T_STRING en t_alfabeto1
-    tokens_linearlayout[num_tokens_linearlayout++] = strdup($1);
-    tokens_linearlayout[num_tokens_linearlayout++] = strdup($2);
-}
+        t_alfabeto0 = strdup($1); // Almacena el valor del primer T_STRING en t_alfabeto0
+        t_alfabeto1 = strdup($2); // Almacena el valor del segundo T_STRING en t_alfabeto1
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($1);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($2);
+    }
+    |   T_STRING T_STRING T_STRING{
+        t_alfabeto0 = strdup($1); // Almacena el valor del primer T_STRING en t_alfabeto0
+        t_alfabeto1 = strdup($2); // Almacena el valor del segundo T_STRING en t_alfabeto1
+        t_alfabeto1 = strdup($3); // Almacena el valor del segundo T_STRING en t_alfabeto2
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($1);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($2);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($3);
+    }
+    |   T_STRING T_STRING T_STRING T_STRING{
+        t_alfabeto0 = strdup($1); // Almacena el valor del primer T_STRING en t_alfabeto0
+        t_alfabeto1 = strdup($2); // Almacena el valor del segundo T_STRING en t_alfabeto1
+        t_alfabeto1 = strdup($3); // Almacena el valor del segundo T_STRING en t_alfabeto2
+        t_alfabeto1 = strdup($4); // Almacena el valor del segundo T_STRING en t_alfabeto3
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($1);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($2);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($3);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($4);
+    }
+    |   T_STRING T_STRING T_STRING T_STRING T_STRING{
+        t_alfabeto0 = strdup($1); // Almacena el valor del primer T_STRING en t_alfabeto0
+        t_alfabeto1 = strdup($2); // Almacena el valor del segundo T_STRING en t_alfabeto1
+        t_alfabeto1 = strdup($3); // Almacena el valor del segundo T_STRING en t_alfabeto2
+        t_alfabeto1 = strdup($4); // Almacena el valor del segundo T_STRING en t_alfabeto3
+        t_alfabeto1 = strdup($5); // Almacena el valor del segundo T_STRING en t_alfabeto4
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($1);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($2);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($3);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($4);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($5);
+    }
+    |   T_STRING T_STRING T_STRING T_STRING T_STRING T_STRING{
+        t_alfabeto0 = strdup($1); // Almacena el valor del primer T_STRING en t_alfabeto0
+        t_alfabeto1 = strdup($2); // Almacena el valor del segundo T_STRING en t_alfabeto1
+        t_alfabeto1 = strdup($3); // Almacena el valor del segundo T_STRING en t_alfabeto2
+        t_alfabeto1 = strdup($4); // Almacena el valor del segundo T_STRING en t_alfabeto3
+        t_alfabeto1 = strdup($5); // Almacena el valor del segundo T_STRING en t_alfabeto4
+        t_alfabeto1 = strdup($6); // Almacena el valor del segundo T_STRING en t_alfabeto5
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($1);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($2);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($3);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($4);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($5);
+        tokens_linearlayout[num_tokens_linearlayout++] = strdup($6);
+    }
 
-                        
+
 simbolos: T_SIMBOLO
                 
                 
@@ -173,6 +217,76 @@ estadosattributes: T_INT T_INT {
             tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($2);
             tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($3);
         }
+        | T_INT T_INT T_INT T_INT T_INT {
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($3);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($4);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($5);
+        }
+        | T_INT T_INT T_INT T_INT T_INT T_INT{
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($3);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($4);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($5);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($6);
+        }
+        | T_INT T_INT T_INT T_INT T_INT T_INT T_INT{
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($3);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($4);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($5);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($6);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($7);
+        }
+        | T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT{
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($3);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($4);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($5);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($6);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($7);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($8);
+        }
+        | T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT{
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($3);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($4);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($5);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($6);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($7);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($8);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($9);
+        }
+        | T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT{
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($3);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($4);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($5);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($6);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($7);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($8);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($9);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($10);
+        }
+        | T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT T_INT{
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($1);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($2);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($3);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($4);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($5);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($6);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($7);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($8);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($9);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($10);
+            tokens_estadosattributes[num_tokens_estadosattributes++] = strdup($11);
+        }                        
 ;
 
 
@@ -285,6 +399,102 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
                              int error_line = lineno;
 
                              if (strcmp($33, t_alfabeto0) != 0 && strcmp($33, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($37), $39, atoi($41));
+
+                             int error_line = lineno;
+
+                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($39, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
+                        T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($43), $45, atoi($47));
+
+                             int error_line = lineno;
+
+                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($45, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($49), $51, atoi($53));
+
+                             int error_line = lineno;
+
+                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($51, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($55), $57, atoi($59));
+
+                             int error_line = lineno;
+
+                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($57, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($61), $63, atoi($65));
+
+                             int error_line = lineno;
+
+                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($63, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
+                        T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($67), $69, atoi($71));
+
+                             int error_line = lineno;
+
+                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($69, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
                                     sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
