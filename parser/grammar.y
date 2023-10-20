@@ -75,6 +75,7 @@ void yyerror(const char *message);
 %token<strval> T_TRANSICIONES
 %token<strval> T_END_TAG
 %token<strval> T_INT
+%token<strval> T_ALPHANUM
 
 %token<strval> T_END_ALFABETO
 %token<strval> T_END_AUTOMATA_AFN
@@ -414,10 +415,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                              int error_line = lineno;
 
-                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($39, t_alfabeto1) != 0)
+                             if (strcmp($39, t_alfabeto0) != 0 && strcmp($39, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $38);
                                     yyerror(error_message);
                                 }
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
@@ -430,10 +431,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                              int error_line = lineno;
 
-                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($45, t_alfabeto1) != 0)
+                             if (strcmp($45, t_alfabeto0) != 0 && strcmp($45, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $44);
                                     yyerror(error_message);
                                 }
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
@@ -446,10 +447,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                              int error_line = lineno;
 
-                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($51, t_alfabeto1) != 0)
+                             if (strcmp($51, t_alfabeto0) != 0 && strcmp($51, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $50);
                                     yyerror(error_message);
                                 }
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
@@ -462,10 +463,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                              int error_line = lineno;
 
-                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($57, t_alfabeto1) != 0)
+                             if (strcmp($57, t_alfabeto0) != 0 && strcmp($57, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $56);
                                     yyerror(error_message);
                                 }
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
@@ -478,10 +479,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                              int error_line = lineno;
 
-                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($63, t_alfabeto1) != 0)
+                             if (strcmp($63, t_alfabeto0) != 0 && strcmp($63, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $62);
                                     yyerror(error_message);
                                 }
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
@@ -494,10 +495,10 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                              int error_line = lineno;
 
-                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($69, t_alfabeto1) != 0)
+                             if (strcmp($69, t_alfabeto0) != 0 && strcmp($69, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $68);
                                     yyerror(error_message);
                                 }
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
@@ -510,10 +511,42 @@ transicionalesattributes: T_INT T_COMMA  T_STRING  T_COMMA  T_INT
 
                              int error_line = lineno;
 
-                             if (strcmp($33, t_alfabeto0) != 0 && strcmp($75, t_alfabeto1) != 0)
+                             if (strcmp($75, t_alfabeto0) != 0 && strcmp($75, t_alfabeto1) != 0)
                                 {
                                     char error_message[100];
-                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $32);
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $74);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
+                         T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($79), $81, atoi($83));
+
+                             int error_line = lineno;
+
+                             if (strcmp($81, t_alfabeto0) != 0 && strcmp($81, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $80);
+                                    yyerror(error_message);
+                                }
+                                tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
+                         }
+
+                        T_INT T_COMMA  T_STRING T_COMMA  T_INT
+                         {
+                            char concatenated_values[100]; // Crear un buffer para almacenar la cadena concatenada
+                            sprintf(concatenated_values, "%d,%s,%d", atoi($85), $87, atoi($89));
+
+                             int error_line = lineno;
+
+                             if (strcmp($87, t_alfabeto0) != 0 && strcmp($87, t_alfabeto1) != 0)
+                                {
+                                    char error_message[100];
+                                    sprintf(error_message, "One CHARACTER at line %d does not match values %s or %s that were entered in ALFABETO found %s ", error_line, t_alfabeto0, t_alfabeto1, $86);
                                     yyerror(error_message);
                                 }
                                 tokens_transicionales[num_tokens_transicionales++] = strdup(concatenated_values);
@@ -729,12 +762,12 @@ void yyerror(const char *message) {
 
     // Escribe el error en el archivo.
     if (flag_err_type == 0) {
-        fprintf(vitacora_errores_file, "-> ERROR at line %d caused by %s : %s\n", lineno, message);
-        printf("-> ERROR at line %d caused by %s : %s\n", lineno, message);
+        fprintf(vitacora_errores_file, "-> WARNING at line %d caused by %s : %s\n", lineno, message);
+        printf("-> WARNING at line %d caused by %s : %s\n", lineno, message);
     } else if (flag_err_type == 1) {
         *str_buf_ptr = '\0'; 
        // fprintf(vitacora_errores_file,"-> ERROR at line %d near \"%s\": %s\n", lineno, str_buf, message);
-        printf("-> ERROR at line %d near \"%s\": %s\n", lineno, str_buf, message);
+        printf("-> WARNING at line %d near \"%s\": %s\n", lineno, str_buf, message);
     }
 
     flag_err_type = 0;

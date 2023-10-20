@@ -77,7 +77,8 @@ WHITESPACE          [ \t]
 [a-zA-Z&][a-zA-Z0-9&]*                          { token_print(T_STRING); yylval.strval=strdup(yytext); close_vitacora_file(); return T_STRING;}
 \'[a-zA-Z0-9_\-\.]*\'                           { token_print(T_STRING_SINGLE_QUOTE); yylval.strval=strdup(yytext);close_vitacora_file();  return T_STRING_SINGLE_QUOTE;}  
 \"[a-zA-Z0-9_\-\.]*" "[a-zA-Z0-9_\-\.]*\"       { token_print(T_STRING_DQ_SPACE); yylval.strval=strdup(yytext); close_vitacora_file(); return T_STRING_DQ_SPACE;}
-[0-9]+		                                      {token_print(T_INT); yylval.strval=strdup(yytext); close_vitacora_file(); return T_INT;}
+[0-9]+		                                    {token_print(T_INT); yylval.strval=strdup(yytext); close_vitacora_file(); return T_INT;}
+[a-zA-Z][0-9]+    	                            {token_print(T_ALPHANUM); yylval.strval=strdup(yytext); close_vitacora_file(); return T_ALPHANUM;}
 
 
 
@@ -127,7 +128,7 @@ WHITESPACE          [ \t]
 // }
 void token_print(){
     if(FLEX_DEBUG && SHOW_TOKENS){
-        printf("TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
+       // printf("TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
 
         // Abre el archivo en modo de escritura al final del archivo (creándolo si no existe).
         if (vitacora_tokens_file == NULL) {
