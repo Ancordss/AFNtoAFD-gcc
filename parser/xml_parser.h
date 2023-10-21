@@ -32,6 +32,7 @@ char** get_tokens_transcicionales();
 char** get_tokens_finalesattributes();
 char** get_tokens_iniciales();
 void close_vitacora();
+void init_vitacora_error_file();
 #ifdef __cplusplus
 }
 #endif

@@ -630,6 +630,7 @@ void close_vitacora(){
 
     fflush(vitacora_errores_file);
     fclose(vitacora_errores_file);
+    vitacora_errores_file = NULL;
 }
 
 int parse_xml() {
@@ -755,12 +756,9 @@ int parse_xml() {
 //     }
 // }
 
-void yyerror(const char *message) {
-    error_count++;
-    
-    // Abre el archivo en modo de escritura (creándolo si no existe).
-    if (vitacora_errores_file == NULL) {
-        printf("Syntax Analysis Generated errors. Please check the error log for details.");
+void init_vitacora_error_file(){
+
+    if (vitacora_errores_file == NULL) { 
         vitacora_errores_file = fopen("vitacora_errores.html", "a");
         if (vitacora_errores_file == NULL) {
             perror("Error al abrir el archivo vitacora_errores.html");
@@ -779,6 +777,14 @@ void yyerror(const char *message) {
         fprintf(vitacora_errores_file, "<div class='container'>\n");
         fprintf(vitacora_errores_file, "<h1>Error Log</h1>\n");
     }
+
+}
+
+void yyerror(const char *message) {
+    error_count++;
+    
+    // Abre el archivo en modo de escritura (creándolo si no existe).
+    init_vitacora_error_file();
 
     // Escribe el error en el archivo HTML.
     fprintf(vitacora_errores_file, "<p class='error'>ERROR at line %d: %s</p>\n", lineno, message);

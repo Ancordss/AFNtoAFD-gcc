@@ -1070,7 +1070,7 @@ int main() {
         switch (choice) {
         case 1:
             // Llamar a LoadXMLFile();
-            
+            init_vitacora_error_file();
             LoadXMLFile();
             close_vitacora();
             system("cls");
