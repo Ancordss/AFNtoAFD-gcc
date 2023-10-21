@@ -35,12 +35,12 @@ int main() {
 
     // Inicializa el parser con el archivo XML
     init_parser(xml_file_ptr);
-
+    
     // Realiza el análisis del XML
     int result = parse_xml();
     if (result == 0) {
         std::cout << "Análisis exitoso." << std::endl;
-
+        close_vitacora();
         // Obtiene los tokens de tokens_linearlayout
         char **alfabeto_tokens = get_tokens_linearlayout();
         std::vector<std::string> alfabeto_tokens_vector;

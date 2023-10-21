@@ -31,7 +31,7 @@ char** get_tokens_estadosattributes();
 char** get_tokens_transcicionales();
 char** get_tokens_finalesattributes();
 char** get_tokens_iniciales();
-
+void close_vitacora();
 #ifdef __cplusplus
 }
 #endif

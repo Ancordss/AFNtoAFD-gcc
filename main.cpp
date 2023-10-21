@@ -278,6 +278,30 @@ void GenerarArchivoDOT_AFD(
 }
 
 
+void show_png2(const std::string& rutaImagen) {
+    std::ofstream archivoHTML("imagen2.html");
+    if (!archivoHTML) {
+        std::cerr << "Error al abrir el archivo HTML." << std::endl;
+        return;
+    }
+
+    archivoHTML << "<!DOCTYPE html>" << std::endl;
+    archivoHTML << "<html>" << std::endl;
+    archivoHTML << "<head>" << std::endl;
+    archivoHTML << "<title>Imagen AFD</title>" << std::endl;
+    archivoHTML << "</head>" << std::endl;
+    archivoHTML << "<body>" << std::endl;
+    archivoHTML << "<h1>Imagen AFD</h1>" << std::endl;
+    archivoHTML << "<img src=\"" << rutaImagen << "\" alt=\"AFD\">" << std::endl;
+    archivoHTML << "</body>" << std::endl;
+    archivoHTML << "</html>" << std::endl;
+
+    archivoHTML.close();
+    std::cout << "Archivo HTML creado correctamente." << std::endl;
+
+    
+}
+
 void show_png(const std::string& rutaImagen) {
     std::ofstream archivoHTML("imagen.html");
     if (!archivoHTML) {
@@ -662,7 +686,6 @@ std::tuple<std::vector<std::string>, std::vector<std::string>, std::vector<std::
     }
 
 
-
     iniciales_tokens = get_tokens_iniciales();
     if (iniciales_tokens != NULL) {
         iniciales_tokens_vector = charArrayToVector(iniciales_tokens);
@@ -794,37 +817,109 @@ void Cleanpath() {
         "afn.html",
         "afn.png",
         "afn.dot",
-        "imagen.html"
+        "imagen.html",
+        "AFD_Graph",
+        "AFD_Graph.png",
+        "afddata.html",
+        "imagen.html",
+        "imagen2.html",
+        
     };
 
-    free(alfabeto_tokens);
-    alfabeto_tokens = NULL;
+    // free(alfabeto_tokens);
+    // alfabeto_tokens = NULL;
 
-    free(finalesattributes_tokens);
-    finalesattributes_tokens = NULL;
+    // free(finalesattributes_tokens);
+    // finalesattributes_tokens = NULL;
 
-    free(estados_atributos_tokens);
-    estados_atributos_tokens = NULL;
+    // free(estados_atributos_tokens);
+    // estados_atributos_tokens = NULL;
 
-    free(transiconales_tokens);
-    transiconales_tokens = NULL;
+    // free(transiconales_tokens);
+    // transiconales_tokens = NULL;
 
 
-    alfabeto_tokens_vector.clear();
-    finalesattributes_vector.clear();
-    estados_atributos_tokens_vector.clear();
-    transiconales_tokens_vector.clear();
-
+    // alfabeto_tokens_vector.clear();
+    // finalesattributes_vector.clear();
+    // estados_atributos_tokens_vector.clear();
+    // transiconales_tokens_vector.clear();
 
      for (const char* archivo : archivos) {
         if (std::remove(archivo) == 0) {
-            std::cout << "cleaning Path..." << std::endl;
+           // std::cout << "cleaning Path..." << std::endl;
         } else {
-            // std::cerr << "Error al eliminar el archivo '" << archivo << "'" << std::endl;
+             //std::cerr << "Error al eliminar el archivo '" << archivo << "'" << std::endl;
         }
     }
 
     cleanup_parser();
+}
+
+
+
+void generateAFDGraph(const map<set<string>, map<string, set<string>>>& afdTransitions, const string& fileName) {
+    // Abre un archivo para escribir el código DOT
+    ofstream dotFile(fileName);
+
+    if (!dotFile.is_open()) {
+        cerr << "No se pudo abrir el archivo DOT para escritura." << endl;
+        return;
+    }
+
+    // Escribe el encabezado del archivo DOT
+    dotFile << "digraph AFD {" << endl;
+
+    // Escribe las transiciones del AFD
+    for (const auto& [currentState, transitionMap] : afdTransitions) {
+        for (const auto& [symbol, nextState] : transitionMap) {
+            // Crea una etiqueta para la transición
+            string label = symbol;
+            if (label.empty()) {
+                label = "ε";
+            }
+
+            // Escribe la transición en el formato DOT
+            dotFile << "  \"";
+
+            // Si el estado actual es un conjunto de estados, imprímelo entre llaves
+            if (currentState.size() > 1) {
+                dotFile << "{";
+                for (const string& state : currentState) {
+                    dotFile << state << ",";
+                }
+                // Elimina la coma final
+                dotFile.seekp(-1, ios::cur);
+                dotFile << "}";
+            } else {
+                dotFile << *currentState.begin();
+            }
+
+            dotFile << "\" -> \"";
+
+            // Si el próximo estado es un conjunto de estados, imprímelo entre llaves
+            if (nextState.size() > 1) {
+                dotFile << "{";
+                for (const string& state : nextState) {
+                    dotFile << state << ",";
+                }
+                // Elimina la coma final
+                dotFile.seekp(-1, ios::cur);
+                dotFile << "}";
+            } else {
+                dotFile << *nextState.begin();
+            }
+
+            dotFile << "\" [label=\"" << label << "\"];" << endl;
+        }
+    }
+
+    // Cierra el archivo DOT
+    dotFile << "}" << endl;
+    dotFile.close();
+
+    // Llama a Graphviz para generar la imagen (asegúrate de tener Graphviz instalado)
+    string cmd = "dot -Tpng " + fileName + " -o " + fileName + ".png";
+    system(cmd.c_str());
 }
 
 
@@ -891,7 +986,71 @@ void transform(std::vector<std::string> transiconales_tokens_vector,
         }
     }
 
+    std::ofstream afdHtmlFile("afddata.html");
 
+    // Escribir el encabezado HTML y el estilo CSS
+    afdHtmlFile << "<!DOCTYPE html>\n<html>\n<head>\n";
+    afdHtmlFile << "<style>\n";
+    afdHtmlFile << "  body { font-family: Arial, sans-serif; background-color: #f5f5f5; }\n";
+    afdHtmlFile << "  .container { max-width: 800px; margin: 0 auto; padding: 20px; background-color: #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }\n";
+    afdHtmlFile << "  h1 { text-align: center; }\n";
+    afdHtmlFile << "  .section { margin: 20px 0; }\n";
+    afdHtmlFile << "  .state { font-weight: bold; }\n";
+    afdHtmlFile << "  .transition { margin-left: 20px; }\n";
+    afdHtmlFile << "</style>\n";
+    afdHtmlFile << "</head>\n<body>\n";
+    afdHtmlFile << "<div class='container'>\n";
+
+    // Título
+    afdHtmlFile << "<h1>Automata Finito Determinista (AFD)</h1>\n";
+
+    // Estados iniciales, finales y alfabeto
+    afdHtmlFile << "<div class='section'>\n";
+    afdHtmlFile << "<div class='state'>Estados iniciales: {";
+    for (const string& state : iniciales_tokens_vector) {
+        afdHtmlFile << state << " ";
+    }
+    afdHtmlFile << "}</div>\n";
+
+    afdHtmlFile << "<div class='state'>Estados finales: {";
+    for (const string& state : estados_finales_vector) {
+        afdHtmlFile << state << " ";
+    }
+    afdHtmlFile << "}</div>\n";
+
+    afdHtmlFile << "<div class='state'>Alfabeto: {";
+    for (const string& symbol : alphabet) {
+        afdHtmlFile << symbol << " ";
+    }
+    afdHtmlFile << "}</div>\n";
+    afdHtmlFile << "</div>\n";
+
+    // Transiciones del AFD
+    afdHtmlFile << "<div class='section'>\n";
+    for (const auto& [currentState, transitionMap] : afdTransitions) {
+        afdHtmlFile << "<div class='state'>Estado actual: {";
+        for (const string& state : currentState) {
+            afdHtmlFile << state << " ";
+        }
+        afdHtmlFile << "}</div>\n";
+
+        for (const auto& [symbol, nextState] : transitionMap) {
+            afdHtmlFile << "<div class='transition'>Con símbolo '" << symbol << "' va a {";
+            for (const string& state : nextState) {
+                afdHtmlFile << state << " ";
+            }
+            afdHtmlFile << "}</div>\n";
+        }
+    }
+    afdHtmlFile << "</div>\n";
+
+    // Cerrar el archivo HTML
+    afdHtmlFile << "</div>\n</body>\n</html>\n";
+    afdHtmlFile.close();
+
+    
+
+    generateAFDGraph(afdTransitions, "AFD_Graph");
 
 }
 
@@ -913,10 +1072,13 @@ int main() {
             // Llamar a LoadXMLFile();
             
             LoadXMLFile();
+            close_vitacora();
+            system("cls");
             break;
         case 2:
             // Llamar a GenerateHelloWorldXML();
             GenerateHelloWorldXML();
+            system("cls");
             break;
         case 3:
             cout << "Saliendo del programa." << endl;
@@ -938,12 +1100,13 @@ int main() {
 
                 cout << "----------Menu Principal------------" << endl;
                 cout << "1. Mostrar Vitacora" << endl;
-                cout << "2. Mostrar AFN" << endl;
-                cout << "3. Convertir AFN a AFD" << endl;
-                cout << "4. Mostrar AFD" << endl;
-                cout << "5. Salir al Menu Inicial" << endl; // Cambié 6 a 5 para volver al menú inicial
-                cout << "6. Capturar arrays" << endl;
-                cout << "7. Mostrar dibujito" << endl;
+                cout << "2. Mostrar vitacora de errores" << endl;
+                cout << "3. Mostrar AFN" << endl;
+                cout << "4. Mostrar diagrama del AFN" << endl;
+                cout << "5. Mostrar AFD" << endl;
+                cout << "6. Mostrar diagrama AFD" << endl; // Cambié 6 a 5 para volver al menú inicial
+                cout << "7. Salir al menu principal" << endl;
+                cout << "8. Salir del programa" << endl;
                 cout << "--------------------------------------" << endl;
                 cout << "Seleccione una opcion: ";
                 cin >> choice;
@@ -953,8 +1116,20 @@ int main() {
                 case 1:
                     // Llamar a show_filehtml("vitacora_tokens.html");
                     show_filehtml("vitacora_tokens.html");
+                    system("cls");
+
                     break;
                 case 2:
+
+                //     //
+                //     // Llamar a ShowAFD();
+                    show_filehtml("vitacora_errores.html");
+                //     break;
+                // //
+                    system("cls");
+                    break;
+                case 3:
+                    
                     // Llamar a ShowLoadedData();
                     //ShowLoadedData();
                     std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector,iniciales_tokens_vector) = ShowLoadedData();
@@ -969,41 +1144,70 @@ int main() {
 
                     show_filehtml("afn.html");
                     GenerarArchivoDOT(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector,finalesattributes_vector);
-
-                    
-
-                    break;
-                case 3:
-                    // Llamar a AFNToAFD();
-                    std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector,iniciales_tokens_vector) = ShowLoadedData();
-                    std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector) = ProcesarAFN(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector);
-                       // Datos del AFN almacenados en vectores de string
-                    transform(transiconales_tokens_vector,alfabeto_tokens_vector,estados_atributos_tokens_vector,estados_finales_vector,iniciales_tokens_vector);
+                    system("cls");
 
                     
                     break;
                 case 4:
-                    // Llamar a ShowAFD();
-                    ShowAFD();
-                    break;
-                case 5:
-                    Cleanpath();
-                    returnToMainMenu = true;
-                    break;
-                case 6:
-                    // Llamar a GenerateHTMLWithData(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector);
-                    GenerateHTMLWithData(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector);
-                    break;
-                case 7:
-                    // Llamar a show_png("afn.png");
-                    // Llamar a show_filehtml("imagen.html")
-                    if (fileExists("afn.png")) {
+                if (fileExists("afn.png")) {
                     show_png("afn.png");
                     show_filehtml("imagen.html");
                     } else {
                         cout << "Primero debes seleccionar la opción 2 para generar el archivo afn.png." << endl;
                     }
+
+                    system("cls");
+
                     break;
+                case 5:
+                // Llamar a AFNToAFD();
+                    std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector,iniciales_tokens_vector) = ShowLoadedData();
+                    std::tie(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector) = ProcesarAFN(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector, finalesattributes_vector);
+                       // Datos del AFN almacenados en vectores de string
+                    transform(transiconales_tokens_vector,alfabeto_tokens_vector,estados_atributos_tokens_vector,finalesattributes_vector,iniciales_tokens_vector);
+                    show_filehtml("afddata.html");
+                    system("cls");
+
+                    break;
+
+                case 6:
+                    // Llamar a GenerateHTMLWithData(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector);
+                    //GenerateHTMLWithData(alfabeto_tokens_vector, estados_atributos_tokens_vector, transiconales_tokens_vector);
+                    if (fileExists("AFD_Graph.png")) {
+                    show_png2("AFD_Graph.png");
+                    show_filehtml("imagen2.html");
+                    } else {
+                        cout << "Primero debes seleccionar la data del AFN para generar el archivo afn.png." << endl;
+                    }
+                    ;
+                    system("cls");
+                    break;
+                case 7:
+                    // Llamar a show_png("afn.png");
+                    // Llamar a show_filehtml("imagen.html")
+                    try {
+                        std::cout << "entre" << std::endl;
+                        Cleanpath();
+                        returnToMainMenu = true;
+                        system("cls");
+                        break;
+                        
+                    }
+                    catch (const std::exception& e) {
+                        std::cout << e.what() << std::endl;
+                        break;
+                    }
+                    
+                    //break;
+                case 8:
+                    try {
+                        Cleanpath();
+                        return 0;
+                    }
+                    catch (const std::exception& e) {
+                        std::cout << e.what() << std::endl;
+                    }
+
                 default:
                     cout << "Opcion no válida. Por favor, seleccione una opcion valida." << endl;
                     break;

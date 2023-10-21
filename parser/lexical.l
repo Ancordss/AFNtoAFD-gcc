@@ -126,10 +126,29 @@ WHITESPACE          [ \t]
 //         printf("TOKEN FOUND: %s  | LINE: %d\n", yytext,lineno);
 //     }    
 // }
-void token_print(){
-    if(FLEX_DEBUG && SHOW_TOKENS){
-       // printf("TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
+// void token_print(){
+//     if(FLEX_DEBUG && SHOW_TOKENS){
+//        // printf("TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
 
+//         // Abre el archivo en modo de escritura al final del archivo (creándolo si no existe).
+//         if (vitacora_tokens_file == NULL) {
+//             vitacora_tokens_file = fopen("vitacora_tokens.html", "a");
+//             if (vitacora_tokens_file == NULL) {
+//                 perror("Error al abrir el archivo vitacora_tokens.html");
+//                 return;
+//             }
+//         }
+
+//         // Escribe la línea en el archivo.
+//         fprintf(vitacora_tokens_file, "TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
+//         fclose(vitacora_tokens_file);
+//         vitacora_tokens_file = NULL;
+        
+//     }
+// }
+
+void token_print() {
+    if (FLEX_DEBUG && SHOW_TOKENS) {
         // Abre el archivo en modo de escritura al final del archivo (creándolo si no existe).
         if (vitacora_tokens_file == NULL) {
             vitacora_tokens_file = fopen("vitacora_tokens.html", "a");
@@ -137,13 +156,12 @@ void token_print(){
                 perror("Error al abrir el archivo vitacora_tokens.html");
                 return;
             }
+            // Agrega el encabezado HTML una sola vez al inicio del archivo.
+            fprintf(vitacora_tokens_file, "<html><head><title>Token Log</title></head><body>\n");
         }
 
-        // Escribe la línea en el archivo.
-        fprintf(vitacora_tokens_file, "TOKEN FOUND: %s  | LINE: %d\n", yytext, lineno);
-        fclose(vitacora_tokens_file);
-        vitacora_tokens_file = NULL;
-        
+        // Escribe cada línea en un formato HTML adecuado.
+        fprintf(vitacora_tokens_file, "<p>TOKEN FOUND: %s  | LINE: %d</p>\n", yytext, lineno);
     }
 }
 //print if comment is found 

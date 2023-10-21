@@ -626,6 +626,12 @@ char** get_tokens_iniciales() {
     return tokens_iniciales;
 }
 
+void close_vitacora(){
+
+    fflush(vitacora_errores_file);
+    fclose(vitacora_errores_file);
+}
+
 int parse_xml() {
     int token;
 
@@ -642,9 +648,12 @@ int parse_xml() {
 
     if (error_count > 0) {
         printf(" ");
+
     } else {
         printf("Syntax Analysis completed successfully.\n");
+
     }
+    
 
     return 0;
 }
@@ -749,32 +758,67 @@ int parse_xml() {
 void yyerror(const char *message) {
     error_count++;
     
-
     // Abre el archivo en modo de escritura (creándolo si no existe).
     if (vitacora_errores_file == NULL) {
-        printf("Syntax Analysis Generated errors check the vitacora errors file");
+        printf("Syntax Analysis Generated errors. Please check the error log for details.");
         vitacora_errores_file = fopen("vitacora_errores.html", "a");
         if (vitacora_errores_file == NULL) {
             perror("Error al abrir el archivo vitacora_errores.html");
             exit(-1);
         }
+        
+        // Escribe el encabezado HTML y el estilo básico en el archivo.
+        fprintf(vitacora_errores_file, "<!DOCTYPE html>\n<html>\n<head>\n");
+        fprintf(vitacora_errores_file, "<style>\n");
+        fprintf(vitacora_errores_file, "  body { font-family: Arial, sans-serif; background-color: #f5f5f5; }\n");
+        fprintf(vitacora_errores_file, "  .container { max-width: 800px; margin: 0 auto; padding: 20px; background-color: #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }\n");
+        fprintf(vitacora_errores_file, "  h1 { text-align: center; }\n");
+        fprintf(vitacora_errores_file, "  .error { color: red; font-weight: bold; }\n");
+        fprintf(vitacora_errores_file, "</style>\n");
+        fprintf(vitacora_errores_file, "</head>\n<body>\n");
+        fprintf(vitacora_errores_file, "<div class='container'>\n");
+        fprintf(vitacora_errores_file, "<h1>Error Log</h1>\n");
     }
 
-    // Escribe el error en el archivo.
-    if (flag_err_type == 0) {
-        fprintf(vitacora_errores_file, "-> WARNING at line %d caused by %s : %s\n", lineno, message);
-        printf("-> WARNING at line %d caused by %s : %s\n", lineno, message);
-    } else if (flag_err_type == 1) {
-        *str_buf_ptr = '\0'; 
-       // fprintf(vitacora_errores_file,"-> ERROR at line %d near \"%s\": %s\n", lineno, str_buf, message);
-        printf("-> WARNING at line %d near \"%s\": %s\n", lineno, str_buf, message);
-    }
+    // Escribe el error en el archivo HTML.
+    fprintf(vitacora_errores_file, "<p class='error'>ERROR at line %d: %s</p>\n", lineno, message);
+    printf("ERROR at line %d: %s\n", lineno, message);
 
-    flag_err_type = 0;
-    if (MAX_ERRORS > 0 && error_count == MAX_ERRORS) {
+    if (MAX_ERRORS > 0 && error_count >= MAX_ERRORS) {
+        fprintf(vitacora_errores_file, "<p class='error'>Max errors (%d) detected. ABORTING...</p>\n", MAX_ERRORS);
         printf("Max errors (%d) detected. ABORTING...\n", MAX_ERRORS);
-        fclose(vitacora_errores_file);
+        fclose(vitacora_errores_file); // Cierra el archivo HTML
         exit(-1);
     }
-    fflush(vitacora_errores_file);
 }
+// void yyerror(const char *message) {
+//     error_count++;
+    
+
+//     // Abre el archivo en modo de escritura (creándolo si no existe).
+//     if (vitacora_errores_file == NULL) {
+//         printf("Syntax Analysis Generated errors check the vitacora errors file");
+//         vitacora_errores_file = fopen("vitacora_errores.html", "a");
+//         if (vitacora_errores_file == NULL) {
+//             perror("Error al abrir el archivo vitacora_errores.html");
+//             exit(-1);
+//         }
+//     }
+
+//     // Escribe el error en el archivo.
+//     if (flag_err_type == 0) {
+//         fprintf(vitacora_errores_file, "-> WARNING at line %d caused by %s : %s\n", lineno, message);
+//         printf("-> WARNING at line %d caused by %s : %s\n", lineno, message);
+//     } else if (flag_err_type == 1) {
+//         *str_buf_ptr = '\0'; 
+//        // fprintf(vitacora_errores_file,"-> ERROR at line %d near \"%s\": %s\n", lineno, str_buf, message);
+//         printf("-> WARNING at line %d near \"%s\": %s\n", lineno, str_buf, message);
+//     }
+
+//     flag_err_type = 0;
+//     if (MAX_ERRORS > 0 && error_count == MAX_ERRORS) {
+//         printf("Max errors (%d) detected. ABORTING...\n", MAX_ERRORS);
+//         exit(-1);
+//     }
+    
+// }
