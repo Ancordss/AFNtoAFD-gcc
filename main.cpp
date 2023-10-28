@@ -580,11 +580,12 @@ void GenerateHelloWorldXML() {
 
 
 
-void LoadXMLFile() {
+int LoadXMLFile() {
     std::string filePath;
     std::cout << "Enter the path of the XML file: " << std::endl;
     std::cin.ignore();  // Limpia el búfer de entrada
     std::getline(std::cin, filePath);  // Usa getline para leer toda la línea, incluyendo espacios
+    int error;
 
     // Verifica si la entrada comienza y termina con comillas dobles
     if (!filePath.empty() && filePath.front() == '"' && filePath.back() == '"') {
@@ -598,11 +599,13 @@ void LoadXMLFile() {
         FILE *xml_file_ptr = fopen(filePath.c_str(), "r");
         if (!xml_file_ptr) {
             std::cerr << "Error opening temporary file" << std::endl;
+            error = 1;
         }
 
         if (filePath.length() < 4 || filePath.substr(filePath.length() - 4) != ".xml") {
             std::cerr<<"Error: Filepath must end with '.xml'."<< std::endl;
             throw std::runtime_error("Error.");
+            error = 1;
         }
 
         // Inicializa el parser con el archivo XML
@@ -611,11 +614,15 @@ void LoadXMLFile() {
         if (result == 0) {
             std::cout << "Cargando archivo XML desde '" << filePath << "'..." << std::endl;
             std::cout << "Analisis exitoso." << std::endl;
+            error = 0;
         }
     }
     catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
+        error = 1;
     }
+
+    return error;
 
     // Implementa la lógica para cargar el archivo XML aquí (código no proporcionado).
     
@@ -1056,7 +1063,9 @@ void transform(std::vector<std::string> transiconales_tokens_vector,
 
 int main() {
     int choice;
-    bool exitProgram = false; // Variable para controlar la ejecución del programa
+    bool exitProgram = false;
+    int in;
+     // Variable para controlar la ejecución del programa
 
     do {
         cout << "----------Menu Inicial------------" << endl;
@@ -1070,15 +1079,23 @@ int main() {
         switch (choice) {
         case 1:
             // Llamar a LoadXMLFile();
-            init_vitacora_error_file();
-            LoadXMLFile();
-            close_vitacora();
-            system("cls");
+            try{
+                init_vitacora_error_file();
+                in = LoadXMLFile();
+                close_vitacora();
+                system("cls");
+                
+            }
+            catch (const std::exception& e) {
+                std::cout << e.what() << std::endl;
+                in = 1;
+            }
             break;
         case 2:
             // Llamar a GenerateHelloWorldXML();
             GenerateHelloWorldXML();
             system("cls");
+            in = 1;
             break;
         case 3:
             cout << "Saliendo del programa." << endl;
@@ -1088,7 +1105,7 @@ int main() {
             break;
         }
 
-        if (choice != 3) {
+        if (in == 0) {
             bool returnToMainMenu = false;
 
             do {
